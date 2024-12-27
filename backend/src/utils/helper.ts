@@ -1,6 +1,7 @@
-import { DB } from "../db";
+import { DB } from '../db';
+import { User } from './interface';
 
-export const getUser = async (username: string) => {
+export const getUser = async (username: string): Promise<User | null> => {
   const sql = `SELECT * FROM users WHERE username = ?`;
 
   return new Promise((resolve, reject) => {
@@ -8,7 +9,7 @@ export const getUser = async (username: string) => {
       if (err) {
         reject(err);
       } else {
-        resolve(row);
+        resolve(row as User);
       }
     });
   });

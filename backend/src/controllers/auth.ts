@@ -19,6 +19,15 @@ export const handleRegister = async (username: string, password: string) => {
   return { message: 'User registered' };
 };
 
+export const handleLogin = async (username: string, password: string) => {
+  const user = await getUser(username);
+  if (!user || user.password !== password) {
+    throw HttpError(400, 'Invalid username or password');
+  }
+
+  return { message: 'Login successful' };
+};
+
 export const clear = () => {
   DB.run('DROP TABLE users', [], (err) => {
     if (err) {
