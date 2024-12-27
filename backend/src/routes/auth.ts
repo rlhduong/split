@@ -2,8 +2,7 @@ import { Router, Response, Request, NextFunction } from 'express';
 import { checkSchema } from 'express-validator';
 import { registerValidationSchema } from '../utils/validationSchema';
 import { registerValidation } from '../middleware/auth';
-import { handleRegister, handleLogin, clear } from '../controllers/auth';
-import { nextTick } from 'process';
+import { handleRegister, handleLogin} from '../controllers/auth';
 
 const router = Router();
 
@@ -37,10 +36,6 @@ router.post(
 
 router.post('/admin/auth/logout', (req: Request, res: Response) => {
   res.send({ message: 'User logged out' });
-});
-
-router.delete('/clear', (req: Request, res: Response) => {
-  res.send(clear());
 });
 
 export default router;

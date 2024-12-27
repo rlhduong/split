@@ -1,3 +1,6 @@
 node_modules
 dist
-src/database.db
+src/check.ts
+package-lock.json
+coverage/
+.env

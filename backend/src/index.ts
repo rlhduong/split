@@ -14,6 +14,8 @@ import trips from './routes/trips';
 import auth from './routes/auth';
 import errorHandler from 'middleware-http-errors';
 
+import { reset } from './db';
+
 const app: Express = express();
 const PORT = process.env.PORT;
 
@@ -32,6 +34,11 @@ app.use(
     swaggerOptions: { docExpansion: false ? 'full' : 'list' },
   })
 );
+
+app.delete('/clear', (req: Request, res: Response) => {
+  reset();
+  res.send({});
+});
 
 app.use(errorHandler());
 

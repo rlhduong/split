@@ -24,4 +24,50 @@ DB.run(sql, [], (err) => {
   }
 });
 
+export function insertUser(username: string, password: string) {
+  sql = `INSERT INTO users (username, password) VALUES (?, ?)`;
+  DB.run(sql, [username, password], (err) => {
+    if (err) {
+      console.error('Error inserting user:', err.message);
+    }
+  });
+}
+
+export function reset() {
+  DB.run('DROP TABLE users', [], (err) => {
+    if (err) {
+      console.error('Error clearing table:', err.message);
+    }
+  });
+
+  sql = `CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
+  )`;
+
+  DB.run(sql, [], (err) => {
+    if (err) {
+      console.error('Error creating table:', err.message);
+    }
+  });
+}
+
+export function checkDB() {
+  const sql = 'SELECT * FROM users';
+  DB.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error('Error fetching users:', err.message);
+      return;
+    }
+    else {
+      for (const row of rows) {
+        console.log(row)
+      }
+    }
+  });
+}
+
+// getAllUsers();
+
 export { DB };
