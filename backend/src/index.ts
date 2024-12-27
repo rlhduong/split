@@ -12,6 +12,7 @@ dotenv.config();
 
 import trips from './routes/trips';
 import auth from './routes/auth';
+import errorHandler from 'middleware-http-errors';
 
 const app: Express = express();
 const PORT = process.env.PORT;
@@ -31,6 +32,8 @@ app.use(
     swaggerOptions: { docExpansion: false ? 'full' : 'list' },
   })
 );
+
+app.use(errorHandler());
 
 app.listen(PORT, () => {
   console.log(`Running on Port ${PORT}`);

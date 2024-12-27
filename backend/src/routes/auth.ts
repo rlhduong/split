@@ -1,4 +1,4 @@
-import { Router, Response, Request } from 'express';
+import { Router, Response, Request, NextFunction } from 'express';
 import { checkSchema } from 'express-validator';
 import { registerValidationSchema } from '../utils/validationSchema';
 import { registerValidation } from '../middleware/auth';
@@ -14,9 +14,15 @@ router.post(
   '/admin/auth/register',
   checkSchema(registerValidationSchema),
   registerValidation,
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
-    res.send(handleRegister(username, password));
+    try {
+      const response = await handleRegister(username, password);
+      res.send(response);
+    }
+    catch (err: any) {
+      next(err);
+    }
   }
 );
 
