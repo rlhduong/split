@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import session from 'express-session';
 import passport from 'passport';
+import './utils/interface';
 
 import YAML from 'yaml';
 import sui from 'swagger-ui-express';

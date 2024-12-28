@@ -12,6 +12,8 @@ router.get('/trips', (req: Request, res: Response) => {
   if (!req.user) {
     throw HttpError(401, 'Unauthorized');
   }
+
+  console.log(req.session);
   res.send(trips);
 });
 

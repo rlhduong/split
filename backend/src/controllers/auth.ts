@@ -1,4 +1,4 @@
-import { getUser } from '../utils/helper';
+import { getUser, hashPassword } from '../utils/helper';
 import HttpError from 'http-errors';
 import { insertUser } from '../db';
 import { Request, Response, NextFunction } from 'express';
@@ -16,7 +16,7 @@ export const handleRegister = async (
     return;
   }
 
-  await insertUser(username, password);
+  await insertUser(username, hashPassword(password));
   user = await getUser(username);
 
   if (user) {
@@ -39,6 +39,7 @@ export const handleLogin = async (
 ) => {
   if (!req.user) {
     next(HttpError(401, 'Unauthorized'));
+    return;
   }
   res.send({});
 };

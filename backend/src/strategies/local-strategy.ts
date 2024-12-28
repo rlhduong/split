@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
-import { getUser, getUserById } from '../utils/helper';
+import { getUser, getUserById, cmpPassword } from '../utils/helper';
 import HttpError from 'http-errors';
 
 
@@ -17,7 +17,7 @@ export default passport.use(
   new Strategy(async (username: string, password: string, done: any) => {
     const user = await getUser(username);
 
-    if (!user || user.password !== password) {
+    if (!user || !cmpPassword(password, user.password)) {
       return done(HttpError(401, 'Invalid username or password'), null);
     }
 
