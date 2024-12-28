@@ -5,6 +5,14 @@ export interface AppUser {
   password: string;
 }
 
+export interface AppTrip {
+  id: number;
+  user_id: number;
+  destination: string;
+  start_date: string;
+  total: number;
+}
+
 declare module 'express-session' {
   interface SessionData {
     passport: {user:number};
@@ -14,5 +22,6 @@ declare module 'express-session' {
 declare global {
   namespace Express {
     interface User extends AppUser {}
+    interface Trip extends AppTrip {}
   }
 }

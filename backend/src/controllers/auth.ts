@@ -1,4 +1,5 @@
-import { getUser, hashPassword } from '../utils/helper';
+import { hashPassword } from '../utils/helper';
+import { getUser } from '../db';
 import HttpError from 'http-errors';
 import { insertUser } from '../db';
 import { Request, Response, NextFunction } from 'express';

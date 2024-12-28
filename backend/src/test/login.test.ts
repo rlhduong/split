@@ -8,7 +8,7 @@ beforeAll(async () => {
 
 describe('login', () => {
   test('Invalid username', async () => {
-    let res = await POST('/admin/auth/login', { ...user, username: 'a' });
+    const res = await POST('/admin/auth/login', { ...user, username: 'a' });
     expect(res.status).toBe(401);
   });
 

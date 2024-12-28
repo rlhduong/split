@@ -1,4 +1,5 @@
 import sqlite3 from 'sqlite3';
+import { AppTrip } from './utils/interface';
 const sql3 = sqlite3.verbose();
 let sql;
 
@@ -42,6 +43,36 @@ export function setUp() {
   });
 }
 
+export const getUser = async (
+  username: string
+): Promise<Express.User> => {
+  const sql = `SELECT * FROM users WHERE username = ?`;
+
+  return new Promise((resolve, reject) => {
+    DB.get(sql, [username], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row as Express.User);
+      }
+    });
+  });
+};
+
+export const getUserById = async (id: number): Promise<Express.User> => {
+  const sql = `SELECT * FROM users WHERE id = ?`;
+
+  return new Promise((resolve, reject) => {
+    DB.get(sql, [id], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row as Express.User);
+      }
+    });
+  });
+};
+
 export async function insertUser(username: string, password: string) {
   sql = `INSERT INTO users (username, password) VALUES (?, ?)`;
   DB.run(sql, [username, password], (err) => {
@@ -60,6 +91,41 @@ export async function insertTrip(
   DB.run(sql, [user_id, destination, start_date, 0], (err) => {
     if (err) {
       console.log('Error inserting trip:', err.message);
+    }
+  });
+}
+
+export async function getTrip(tripId: number): Promise<Express.Trip> {
+  return new Promise((resolve, reject) => {
+    sql = `SELECT * from trips where id = ?`;
+    DB.get(sql, [tripId], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row as AppTrip);
+      }
+    });
+  });
+}
+
+export async function getTripsByUser(userId: number) {
+  return new Promise((resolve, reject) => {
+    sql = `SELECT * from trips where user_id = ?`;
+    DB.all(sql, [userId], (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
+
+export async function deleteTrip(tripId: number) {
+  sql = `DELETE FROM trips WHERE id = ?`;
+  DB.run(sql, [tripId], (err) => {
+    if (err) {
+      console.error('Error deleting trip:', err.message);
     }
   });
 }

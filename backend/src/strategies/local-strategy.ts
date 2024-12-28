@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
-import { getUser, getUserById, cmpPassword } from '../utils/helper';
+import { cmpPassword } from '../utils/helper';
+import { getUser, getUserById } from '../db';
 import HttpError from 'http-errors';
 
 
