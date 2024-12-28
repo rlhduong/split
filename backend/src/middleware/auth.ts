@@ -14,3 +14,15 @@ export const registerValidation = (
   }
   next();
 };
+
+export const sessionValidation = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.user) {
+    next(HttpError(401, 'Unauthorized'));
+    return;
+  }
+  next();
+};

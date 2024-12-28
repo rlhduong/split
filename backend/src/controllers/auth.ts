@@ -49,11 +49,6 @@ export const handleLogout = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.user) {
-    next(HttpError(401, 'Unauthorized'));
-    return;
-  }
-
   req.logOut((err) => {
     if (err) {
       next(HttpError(500, 'Error logging out'));

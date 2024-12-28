@@ -7,8 +7,7 @@ export interface AppUser {
 
 declare module 'express-session' {
   interface SessionData {
-    visited?: boolean;
-    user?: AppUser;
+    passport: {user:number};
   }
 }
 

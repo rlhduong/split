@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { checkSchema } from 'express-validator';
 import { registerValidationSchema } from '../utils/validationSchema';
-import { registerValidation } from '../middleware/auth';
+import { registerValidation, sessionValidation } from '../middleware/auth';
 import { handleRegister, handleLogin, handleLogout } from '../controllers/auth';
 import '../strategies/local-strategy';
 import passport from 'passport';
@@ -17,6 +17,6 @@ router.post(
   handleRegister
 );
 
-router.post('/admin/auth/logout', handleLogout);
+router.post('/admin/auth/logout', sessionValidation, handleLogout);
 
 export default router;
