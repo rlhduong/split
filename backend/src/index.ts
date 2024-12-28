@@ -1,6 +1,7 @@
 import express, { Express, json, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import session from 'express-session';
 
 import YAML from 'yaml';
 import sui from 'swagger-ui-express';
@@ -10,6 +11,7 @@ import process from 'process';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+import cookieParser from 'cookie-parser';
 import trips from './routes/trips';
 import auth from './routes/auth';
 import errorHandler from 'middleware-http-errors';
@@ -22,6 +24,15 @@ const PORT = process.env.PORT;
 app.use(json());
 app.use(cors());
 app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(session({
+  secret: `${process.env.SESSION_SECRET}`,
+  saveUninitialized: false,
+  resave: false,
+  cookie: {
+    maxAge: 60000 * 60 * 24 * 7,
+  }
+}));
 app.use(trips);
 app.use(auth);
 

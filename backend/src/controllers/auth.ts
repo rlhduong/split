@@ -1,23 +1,35 @@
 import { getUser } from '../utils/helper';
 import HttpError from 'http-errors';
 import { insertUser } from '../db';
+import { Request, Response, NextFunction } from 'express';
 
-export const handleRegister = async (username: string, password: string) => {
+export const handleRegister = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password } = req.body;
   const user = await getUser(username);
+
   if (user) {
-    throw HttpError(400, 'User already exists');
+    next(HttpError(400, 'Username already exists'));
+    return;
   }
 
   insertUser(username, password);
-  return { message: 'User registered' };
+  req.session.visited = true;
+  res.send({ message: 'User registered' });
 };
 
-export const handleLogin = async (username: string, password: string) => {
+export const handleLogin = async (req: Request, res: Response, next: NextFunction) => {
+  const { username, password } = req.body;
   const user = await getUser(username);
+
   if (!user || user.password !== password) {
-    throw HttpError(400, 'Invalid username or password');
+    next(HttpError(401, 'Invalid username or password'));
+    return;
   }
 
-  return { message: 'Login successful' };
-};
-
+  req.session.visited = true;
+  res.send({ message: 'User logged in' });
+}

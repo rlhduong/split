@@ -4,3 +4,4 @@ src/check.ts
 package-lock.json
 coverage/
 .env
+src/database.db

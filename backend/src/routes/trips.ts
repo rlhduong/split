@@ -1,5 +1,4 @@
 import { Router, Response, Request } from 'express';
-
 const router = Router();
 
 const trips = [
@@ -9,7 +8,18 @@ const trips = [
 ];
 
 router.get('/trips', (req: Request, res: Response) => {
-  res.send({ trips });
+  req.sessionStore.get(req.session.id, (err, session) => {
+    if (err) {
+      res.send({ message: 'An error occurred' });
+      return;
+    }
+
+    if (session && session.visited) {
+      console.log(session);
+      res.send({ trips });
+      return;
+    }
+  });
 });
 
 export default router;
