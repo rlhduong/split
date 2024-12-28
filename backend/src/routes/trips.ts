@@ -1,4 +1,5 @@
 import { Router, Response, Request } from 'express';
+import HttpError from 'http-errors';
 const router = Router();
 
 const trips = [
@@ -8,18 +9,10 @@ const trips = [
 ];
 
 router.get('/trips', (req: Request, res: Response) => {
-  req.sessionStore.get(req.session.id, (err, session) => {
-    if (err) {
-      res.send({ message: 'An error occurred' });
-      return;
-    }
-
-    if (session && session.visited) {
-      console.log(session);
-      res.send({ trips });
-      return;
-    }
-  });
+  if (!req.user) {
+    throw HttpError(401, 'Unauthorized');
+  }
+  res.send(trips);
 });
 
 export default router;

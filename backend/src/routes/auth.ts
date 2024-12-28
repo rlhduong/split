@@ -2,11 +2,13 @@ import { Router, Response, Request, NextFunction } from 'express';
 import { checkSchema } from 'express-validator';
 import { registerValidationSchema } from '../utils/validationSchema';
 import { registerValidation } from '../middleware/auth';
-import { handleRegister, handleLogin } from '../controllers/auth';
+import { handleRegister, handleLogin, handleLogout } from '../controllers/auth';
+import '../strategies/local-strategy';
+import passport from 'passport';
 
 const router = Router();
 
-router.post('/admin/auth/login', handleLogin);
+router.post('/admin/auth/login', passport.authenticate('local'), handleLogin);
 
 router.post(
   '/admin/auth/register',
@@ -15,8 +17,6 @@ router.post(
   handleRegister
 );
 
-router.post('/admin/auth/logout', (req: Request, res: Response) => {
-  res.send({ message: 'User logged out' });
-});
+router.post('/admin/auth/logout', handleLogout);
 
 export default router;

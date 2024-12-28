@@ -2,6 +2,7 @@ import express, { Express, json, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import session from 'express-session';
+import passport from 'passport';
 
 import YAML from 'yaml';
 import sui from 'swagger-ui-express';
@@ -25,14 +26,19 @@ app.use(json());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(session({
-  secret: `${process.env.SESSION_SECRET}`,
-  saveUninitialized: false,
-  resave: false,
-  cookie: {
-    maxAge: 60000 * 60 * 24 * 7,
-  }
-}));
+app.use(
+  session({
+    secret: `${process.env.SESSION_SECRET}`,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: 60000 * 60 * 24 * 30,
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(trips);
 app.use(auth);
 

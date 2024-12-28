@@ -42,7 +42,7 @@ export function setUp() {
   });
 }
 
-export function insertUser(username: string, password: string) {
+export async function insertUser(username: string, password: string) {
   sql = `INSERT INTO users (username, password) VALUES (?, ?)`;
   DB.run(sql, [username, password], (err) => {
     if (err) {
@@ -51,7 +51,7 @@ export function insertUser(username: string, password: string) {
   });
 }
 
-export function insertTrip(
+export async function insertTrip(
   user_id: number,
   destination: string,
   start_date: string

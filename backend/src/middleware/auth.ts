@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
+import HttpError from 'http-errors';
 
 export const registerValidation = (
   req: Request,
@@ -8,7 +9,7 @@ export const registerValidation = (
 ) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    res.status(400).json({ errors: result.array()[0] });
+    next(HttpError(400, result.array()[0]));
     return;
   }
   next();
