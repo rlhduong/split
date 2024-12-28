@@ -48,7 +48,7 @@ app.use(
   '/docs',
   sui.serve,
   sui.setup(YAML.parse(file), {
-    swaggerOptions: { docExpansion: false ? 'full' : 'list' },
+    swaggerOptions: { docExpansion: 'list' },
   })
 );
 

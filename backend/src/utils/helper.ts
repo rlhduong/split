@@ -1,5 +1,4 @@
 import { DB } from '../db';
-import { AppUser } from './interface';
 
 export const getUser = async (username: string): Promise<Express.User| null> => {
   const sql = `SELECT * FROM users WHERE username = ?`;

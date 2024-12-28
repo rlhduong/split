@@ -1,4 +1,4 @@
-import { Router, Response, Request, NextFunction } from 'express';
+import { Router } from 'express';
 import { checkSchema } from 'express-validator';
 import { registerValidationSchema } from '../utils/validationSchema';
 import { registerValidation } from '../middleware/auth';
