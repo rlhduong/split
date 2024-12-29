@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3';
-import { AppTrip } from './utils/interface';
+import { AppTrip, Friends } from './utils/interface';
 const sql3 = sqlite3.verbose();
 let sql;
 
@@ -142,18 +142,14 @@ export async function deleteTrip(tripId: number) {
   });
 }
 
-// export async function getFriends(tripId: number) {
-//   return new Promise((resolve, reject) => {
-//     sql = `SELECT json(friends) AS friends FROM trips WHERE id = ?`;
-//     DB.get(sql, [tripId], (err, row) => {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve(row);
-//       }
-//     });
-//   });
-// }
+export async function updateFriends(tripId: number, friends: string) {
+  sql = 'UPDATE trips SET friends = ? WHERE id = ?';
+  DB.run(sql, [friends, tripId], (err) => {
+    if (err) {
+      console.error('Error updating trip:', err.message);
+    }
+  });
+}
 
 export function reset() {
   DB.run('DROP TABLE users', [], (err) => {

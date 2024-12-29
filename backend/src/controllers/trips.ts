@@ -15,13 +15,13 @@ export const createTrip = async (req: Request, res: Response) => {
 
 export const getTrips = async (req: Request, res: Response) => {
   const trips = await getTripsByUser(req.session.passport?.user || 0);
-  res.send({ trips });
+  res.send(trips);
 };
 
 export const viewTrip = async (req: Request, res: Response) => {
   const { tripId } = req.params;
   const trip = await getTrip(parseInt(tripId));
-  res.send({ trip });
+  res.send(trip);
 };
 
 export const deleteTrip = async (req: Request, res: Response) => {

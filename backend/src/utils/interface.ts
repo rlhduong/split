@@ -14,7 +14,7 @@ export interface AppTrip {
   user_id: number;
   destination: string;
   start_date: string;
-  friends: Friends;
+  friends: string;
   total: number;
 }
 
