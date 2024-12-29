@@ -5,17 +5,22 @@ export interface AppUser {
   password: string;
 }
 
+export interface Friends {
+  [key: string]: { [key: string]: number } | {};
+}
+
 export interface AppTrip {
   id: number;
   user_id: number;
   destination: string;
   start_date: string;
+  friends: Friends;
   total: number;
 }
 
 declare module 'express-session' {
   interface SessionData {
-    passport: {user:number};
+    passport: { user: number };
   }
 }
 

@@ -32,6 +32,7 @@ export function setUp() {
   user_id INTEGER NOT NULL,
   destination TEXT NOT NULL,
   start_date TEXT NOT NULL,
+  friends TEXT NOT NULL,
   total INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
   )`;
@@ -43,9 +44,7 @@ export function setUp() {
   });
 }
 
-export const getUser = async (
-  username: string
-): Promise<Express.User> => {
+export const getUser = async (username: string): Promise<Express.User> => {
   const sql = `SELECT * FROM users WHERE username = ?`;
 
   return new Promise((resolve, reject) => {
@@ -87,8 +86,8 @@ export async function insertTrip(
   destination: string,
   start_date: string
 ) {
-  sql = `INSERT INTO trips (user_id, destination, start_date, total) VALUES (?,?,?,?)`;
-  DB.run(sql, [user_id, destination, start_date, 0], (err) => {
+  sql = `INSERT INTO trips (user_id, destination, start_date, friends, total) VALUES (?,?,?,?,?)`;
+  DB.run(sql, [user_id, destination, start_date, '{}', 0], (err) => {
     if (err) {
       console.log('Error inserting trip:', err.message);
     }
@@ -121,6 +120,19 @@ export async function getTripsByUser(userId: number) {
   });
 }
 
+export async function updateTrip(
+  tripId: number,
+  destination: string,
+  startDate: string
+) {
+  sql = `UPDATE trips SET destination = ?, start_date = ? WHERE id = ?`;
+  DB.run(sql, [destination, startDate, tripId], (err) => {
+    if (err) {
+      console.error('Error updating trip:', err.message);
+    }
+  });
+}
+
 export async function deleteTrip(tripId: number) {
   sql = `DELETE FROM trips WHERE id = ?`;
   DB.run(sql, [tripId], (err) => {
@@ -129,6 +141,19 @@ export async function deleteTrip(tripId: number) {
     }
   });
 }
+
+// export async function getFriends(tripId: number) {
+//   return new Promise((resolve, reject) => {
+//     sql = `SELECT json(friends) AS friends FROM trips WHERE id = ?`;
+//     DB.get(sql, [tripId], (err, row) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(row);
+//       }
+//     });
+//   });
+// }
 
 export function reset() {
   DB.run('DROP TABLE users', [], (err) => {
