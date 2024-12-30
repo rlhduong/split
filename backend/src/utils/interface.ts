@@ -6,7 +6,16 @@ export interface AppUser {
 }
 
 export interface Friends {
-  [key: string]: { [key: string]: number } | {};
+  [key: string]: { [key: string]: number };
+}
+
+export interface DbTrip {
+  id: number;
+  user_id: number;
+  destination: string;
+  start_date: string;
+  friends: string;
+  total: number;
 }
 
 export interface AppTrip {
@@ -14,7 +23,7 @@ export interface AppTrip {
   user_id: number;
   destination: string;
   start_date: string;
-  friends: string;
+  friends: Friends;
   total: number;
 }
 

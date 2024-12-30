@@ -17,6 +17,7 @@ import cookieParser from 'cookie-parser';
 import trips from './routes/trips';
 import auth from './routes/auth';
 import friends from './routes/friend'
+import expense from './routes/expense'
 import errorHandler from 'middleware-http-errors';
 
 import { reset } from './db';
@@ -44,6 +45,7 @@ app.use(passport.session());
 app.use(trips);
 app.use(auth);
 app.use(friends);
+app.use(expense);
 
 const file = fs.readFileSync(path.join(process.cwd(), 'swagger.yaml'), 'utf8');
 app.get('/', (req: Request, res: Response) => res.redirect('/docs'));

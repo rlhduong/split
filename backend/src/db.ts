@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3';
-import { AppTrip, Friends } from './utils/interface';
+import { AppTrip, DbTrip, Friends } from './utils/interface';
 const sql3 = sqlite3.verbose();
 let sql;
 
@@ -97,11 +97,18 @@ export async function insertTrip(
 export async function getTrip(tripId: number): Promise<Express.Trip> {
   return new Promise((resolve, reject) => {
     sql = `SELECT * from trips where id = ?`;
-    DB.get(sql, [tripId], (err, row) => {
+    DB.get(sql, [tripId], (err, row: DbTrip) => {
       if (err) {
         reject(err);
       } else {
-        resolve(row as AppTrip);
+        resolve({
+          id: row.id,
+          user_id: row.user_id,
+          destination: row.destination,
+          start_date: row.start_date,
+          friends: JSON.parse(row.friends),
+          total: row.total,
+        });
       }
     });
   });
@@ -110,10 +117,13 @@ export async function getTrip(tripId: number): Promise<Express.Trip> {
 export async function getTripsByUser(userId: number) {
   return new Promise((resolve, reject) => {
     sql = `SELECT * from trips where user_id = ?`;
-    DB.all(sql, [userId], (err, rows) => {
+    DB.all(sql, [userId], (err, rows: Array<DbTrip>) => {
       if (err) {
         reject(err);
       } else {
+        for (const row of rows) {
+          row.friends = JSON.parse(row.friends);
+        }
         resolve(rows);
       }
     });
@@ -127,6 +137,15 @@ export async function updateTrip(
 ) {
   sql = `UPDATE trips SET destination = ?, start_date = ? WHERE id = ?`;
   DB.run(sql, [destination, startDate, tripId], (err) => {
+    if (err) {
+      console.error('Error updating trip:', err.message);
+    }
+  });
+}
+
+export async function updateTotal(tripId: number, total: number) {
+  sql = `UPDATE trips SET total = ? WHERE id = ?`;
+  DB.run(sql, [total, tripId], (err) => {
     if (err) {
       console.error('Error updating trip:', err.message);
     }
@@ -152,13 +171,13 @@ export async function updateFriends(tripId: number, friends: string) {
 }
 
 export function reset() {
-  DB.run('DROP TABLE users', [], (err) => {
+  DB.run('DELETE FROM users', [], (err) => {
     if (err) {
       console.error('Error clearing table:', err.message);
     }
   });
 
-  DB.run('DROP TABLE trips', [], (err) => {
+  DB.run('DELETE FROM trips', [], (err) => {
     if (err) {
       console.error('Error clearing table:', err.message);
     }

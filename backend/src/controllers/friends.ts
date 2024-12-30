@@ -17,7 +17,7 @@ export const addFriend = async (
   const { friend } = req.body;
   const trip = await getTrip(parseInt(tripId));
 
-  let friends = JSON.parse(trip.friends);
+  let friends = trip.friends;
 
   if (friend in friends) {
     next(HttpError(400, `${friend} is already in the trip`));
