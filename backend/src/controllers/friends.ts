@@ -24,7 +24,7 @@ export const addFriend = async (
     return;
   }
 
-  friends[friend] = {};
+  friends[friend] = {spent: 0.00, net: 0.00};
   updateFriends(parseInt(tripId), JSON.stringify(friends));
   res.send({});
 };

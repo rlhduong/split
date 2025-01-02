@@ -27,12 +27,10 @@ export const addExpense = async (
   }
 
   for (const f of involved) {
+    friends[f].spent += amt;
     if (f !== payer) {
-      if (payer in friends[f]) {
-        friends[f][payer] += amt;
-      } else {
-        friends[f][payer] = amt;
-      }
+      friends[f].net -= amt;
+      friends[payer].net += amt;
     }
   }
 

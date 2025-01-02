@@ -9,7 +9,7 @@ export const tripValidation = async (
 ) => {
   const { tripId } = req.params;
   const trip = await getTrip(parseInt(tripId));
-  if (!trip) {
+  if (trip.id === -404) {
     next(HttpError(404, 'This trip does not exist'));
     return;
   }

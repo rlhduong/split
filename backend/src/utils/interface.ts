@@ -6,7 +6,7 @@ export interface AppUser {
 }
 
 export interface Friends {
-  [key: string]: { [key: string]: number };
+  [key: string]: { spent: number; net: number };
 }
 
 export interface DbTrip {

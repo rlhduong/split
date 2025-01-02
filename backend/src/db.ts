@@ -102,12 +102,12 @@ export async function getTrip(tripId: number): Promise<Express.Trip> {
         reject(err);
       } else {
         resolve({
-          id: row.id,
-          user_id: row.user_id,
-          destination: row.destination,
-          start_date: row.start_date,
-          friends: JSON.parse(row.friends),
-          total: row.total,
+          id: row ? row.id : -404,
+          user_id: row ? row.user_id : -404,
+          destination: row ? row.destination : '',
+          start_date: row ? row.start_date : '',
+          friends: row ? JSON.parse(row.friends) : {},
+          total: row ? row.total : 0,
         });
       }
     });

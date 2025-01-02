@@ -21,7 +21,6 @@ export const getTrips = async (req: Request, res: Response) => {
 export const viewTrip = async (req: Request, res: Response) => {
   const { tripId } = req.params;
   const trip = await getTrip(parseInt(tripId));
-  trip
   res.send(trip);
 };
 
