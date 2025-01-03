@@ -11,7 +11,7 @@ export const registerValidationSchema = {
       errorMessage: 'Password must be at least 6 characters',
     },
     matches: {
-      options: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[A-Z])[A-Za-z\d]{6,}$/,
+      options: /(?=.*[A-Za-z])(?=.*\d)(?=.*[A-Z])[A-Za-z\d]{6,}/,
       errorMessage:
         'Password must contain at least one number, one uppercase letter, and one lowercase letter',
     },

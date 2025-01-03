@@ -2,6 +2,17 @@ import { Request, Response, NextFunction } from 'express';
 import HttpError from 'http-errors';
 import { getTrip, updateFriends, updateTotal } from '../db';
 
+const EPS = 1e-8;
+
+/**
+ * Check if a number is approximately zero
+ * @param {number} x
+ * @returns {boolean}
+ */
+function isZero(x: number) {
+  return Math.abs(x) <= EPS;
+}
+
 export const addExpense = async (
   req: Request,
   res: Response,
@@ -34,9 +45,46 @@ export const addExpense = async (
     }
   }
 
-  console.log(friends);
-
   updateTotal(parseInt(tripId), trip.total + amount);
   updateFriends(parseInt(tripId), JSON.stringify(friends));
   res.send({});
+};
+
+export const settle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { tripId } = req.params;
+  const trip = await getTrip(parseInt(tripId));
+  let friends = trip.friends;
+  const ret: Array<Array<string>> = [];
+  const arr = [];
+  for (const [f, data] of Object.entries(friends)) {
+    arr.push({ name: f, net: data.net });
+  }
+  arr.sort((a, b) => a.net - b.net);
+
+  while (arr.length >= 2) {
+    const d: { name: string; net: number } | undefined = arr.shift();
+    const c: { name: string; net: number } | undefined = arr.pop();
+
+    const rem: number = (d?.net || 0) + (c?.net || 0);
+    if (!isZero(rem)) {
+      if (rem > 0) {
+        arr.push({ net: rem, name: c?.name || '' });
+      } else {
+        arr.push({ net: rem, name: d?.name || '' });
+      }
+      arr.sort((a, b) => a.net - b.net);
+    }
+
+    const q: Array<string> = [];
+    q.push(d?.name || '');
+    q.push(c?.name || '');
+    q.push(Math.min(Math.abs(d?.net || 0), Math.abs(c?.net || 0)).toFixed(2));
+    ret.push(q);
+  }
+
+  res.send(ret);
 };

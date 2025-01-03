@@ -9,7 +9,8 @@ export const registerValidation = (
 ) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    next(HttpError(400, result.array()[0]));
+    console.log(result)
+    next(HttpError(400, result.array()[0].msg));
     return;
   }
   next();
