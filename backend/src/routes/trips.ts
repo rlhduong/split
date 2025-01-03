@@ -7,6 +7,7 @@ import {
   deleteTrip,
   updateTripA as updateTrip,
   viewTrip,
+  addFriend,
 } from '../controllers/trips';
 
 const router = Router();
@@ -17,5 +18,12 @@ router.get('/trips', sessionValidation, getTrips);
 router.get('/trips/:tripId', sessionValidation, tripValidation, viewTrip);
 router.delete('/trips/:tripId', sessionValidation, tripValidation, deleteTrip);
 router.put('/trips/:tripId', sessionValidation, tripValidation, updateTrip);
+
+router.post(
+  '/trips/:tripId/friends',
+  sessionValidation,
+  tripValidation,
+  addFriend
+);
 
 export default router;

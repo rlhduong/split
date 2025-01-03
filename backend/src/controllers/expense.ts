@@ -53,7 +53,6 @@ export const addExpense = async (
 export const settle = async (
   req: Request,
   res: Response,
-  next: NextFunction
 ) => {
   const { tripId } = req.params;
   const trip = await getTrip(parseInt(tripId));

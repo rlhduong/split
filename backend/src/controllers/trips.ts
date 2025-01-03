@@ -1,11 +1,13 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import {
   insertTrip,
   getTripsByUser,
   deleteTrip as deleteTripByID,
   updateTrip,
   getTrip,
+  updateFriends
 } from '../db';
+import HttpError from 'http-errors';
 
 export const createTrip = async (req: Request, res: Response) => {
   const { destination, startDate } = req.body;
@@ -32,5 +34,26 @@ export const deleteTrip = async (req: Request, res: Response) => {
 export const updateTripA = async (req: Request, res: Response) => {
   const { destination, startDate } = req.body;
   updateTrip(parseInt(req.params.tripId), destination, startDate);
+  res.send({});
+};
+
+export const addFriend = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { tripId } = req.params;
+  const { friend } = req.body;
+  const trip = await getTrip(parseInt(tripId));
+
+  let friends = trip.friends;
+
+  if (friend in friends) {
+    next(HttpError(400, `${friend} is already in the trip`));
+    return;
+  }
+
+  friends[friend] = {spent: 0.00, net: 0.00};
+  updateFriends(parseInt(tripId), JSON.stringify(friends));
   res.send({});
 };

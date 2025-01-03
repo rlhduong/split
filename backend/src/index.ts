@@ -16,7 +16,6 @@ dotenv.config();
 import cookieParser from 'cookie-parser';
 import trips from './routes/trips';
 import auth from './routes/auth';
-import friends from './routes/friend'
 import expense from './routes/expense'
 import errorHandler from 'middleware-http-errors';
 
@@ -44,7 +43,6 @@ app.use(passport.session());
 
 app.use(trips);
 app.use(auth);
-app.use(friends);
 app.use(expense);
 
 const file = fs.readFileSync(path.join(process.cwd(), 'swagger.yaml'), 'utf8');
