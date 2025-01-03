@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { sessionValidation } from '../middleware/auth';
 import { tripValidation } from '../middleware/trip';
-import { addExpense, viewEpenses, settle } from '../controllers/expense';
+import { addExpense, viewEpenses, settle, deleteExpense } from '../controllers/expense';
 
 const router = Router();
 
@@ -17,6 +17,13 @@ router.get(
   sessionValidation,
   tripValidation,
   viewEpenses
+);
+
+router.delete(
+  '/trips/:tripId/expenses/:expenseId',
+  sessionValidation,
+  tripValidation,
+  deleteExpense
 );
 
 router.get(

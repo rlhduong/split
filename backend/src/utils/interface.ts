@@ -36,6 +36,15 @@ export interface AppTrip {
   total: number;
 }
 
+export interface AppExpense {
+  id: number;
+  trip_id: number;
+  description: string;
+  amount: number;
+  payer: string;
+  participants: string[];
+}
+
 declare module 'express-session' {
   interface SessionData {
     passport: { user: number };
@@ -46,5 +55,6 @@ declare global {
   namespace Express {
     interface User extends AppUser {}
     interface Trip extends AppTrip {}
+    interface Expense extends AppExpense {}
   }
 }

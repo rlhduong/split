@@ -201,6 +201,26 @@ export async function insertExpense(
   });
 }
 
+export function getExpense(expenseId: number): Promise<Express.Expense> {
+  return new Promise((resolve, reject) => {
+    sql = `SELECT * from expenses where id = ?`;
+    DB.get(sql, [expenseId], (err, row: DbExpense) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({
+          id: row ? row.id : -404,
+          trip_id: row ? row.trip_id : -404,
+          description: row ? row.description : '',
+          amount: row ? row.amount : 0,
+          payer: row ? row.payer : '',
+          participants: row ? JSON.parse(row.participants) : [],
+        });
+      }
+    });
+  });
+}
+
 export async function getExpenses(tripId: number) {
   return new Promise((resolve, reject) => {
     sql = `SELECT * from expenses where trip_id = ?`;
@@ -214,6 +234,15 @@ export async function getExpenses(tripId: number) {
         resolve(rows);
       }
     });
+  });
+}
+
+export async function deleteExpense(expenseId: number) {
+  sql = `DELETE FROM expenses WHERE id = ?`;
+  DB.run(sql, [expenseId], (err) => {
+    if (err) {
+      console.error('Error deleting expense:', err.message);
+    }
   });
 }
 

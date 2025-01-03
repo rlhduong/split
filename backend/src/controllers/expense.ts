@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpError from 'http-errors';
-import { getTrip, updateFriends, updateTotal, insertExpense, getExpenses } from '../db';
+import {
+  getTrip,
+  updateFriends,
+  updateTotal,
+  insertExpense,
+  getExpenses,
+  getExpense,
+  deleteExpense as deleteExpenseFromDb,
+} from '../db';
 
 const EPS = 1e-8;
 
@@ -49,23 +57,47 @@ export const addExpense = async (
 
   updateTotal(parseInt(tripId), trip.total + amount);
   updateFriends(parseInt(tripId), JSON.stringify(friends));
-  insertExpense(parseInt(tripId), description, amount, payer, JSON.stringify(participants));
+  insertExpense(
+    parseInt(tripId),
+    description,
+    amount,
+    payer,
+    JSON.stringify(participants)
+  );
   res.send({});
 };
 
-export const viewEpenses = async (
-  req: Request,
-  res: Response,
-) => {
+export const viewEpenses = async (req: Request, res: Response) => {
   const { tripId } = req.params;
   const expenses = await getExpenses(parseInt(tripId));
   res.send(expenses);
-}
+};
 
-export const settle = async (
-  req: Request,
-  res: Response,
-) => {
+export const deleteExpense = async (req: Request, res: Response) => {
+  const { tripId, expenseId } = req.params;
+  const trip = await getTrip(parseInt(tripId));
+  const expense = await getExpense(parseInt(expenseId));
+
+  const amt = expense.amount / expense.participants.length;
+  trip.total -= expense.amount;
+
+  let friends = trip.friends;
+
+  for (const f of expense.participants) {
+    friends[f].spent -= amt;
+    if (f !== expense.payer) {
+      friends[f].net += amt;
+      friends[expense.payer].net -= amt;
+    }
+  }
+
+  updateTotal(parseInt(tripId), trip.total);
+  updateFriends(parseInt(tripId), JSON.stringify(friends));
+  deleteExpenseFromDb(parseInt(expenseId));
+  res.send({});
+};
+
+export const settle = async (req: Request, res: Response) => {
   const { tripId } = req.params;
   const trip = await getTrip(parseInt(tripId));
   let friends = trip.friends;
