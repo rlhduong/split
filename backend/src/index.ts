@@ -4,6 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 import passport from 'passport';
 import './utils/interface';
+var SQLiteStore = require('connect-sqlite3')(session);
 
 import YAML from 'yaml';
 import sui from 'swagger-ui-express';
@@ -30,6 +31,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(
   session({
+    store: new SQLiteStore({dir: './src/', db: 'database.db', table: 'sessions'}),
     secret: `${process.env.SESSION_SECRET}`,
     saveUninitialized: false,
     resave: false,

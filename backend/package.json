@@ -15,8 +15,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/connect-sqlite3": "^0.9.5",
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^11.7.0",
+    "connect-sqlite3": "^0.9.15",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
