@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpError from 'http-errors';
-import { getTrip, updateFriends, updateTotal } from '../db';
+import { getTrip, updateFriends, updateTotal, insertExpense, getExpenses } from '../db';
 
 const EPS = 1e-8;
 
@@ -19,7 +19,7 @@ export const addExpense = async (
   next: NextFunction
 ) => {
   const { tripId } = req.params;
-  const { payer, involved, amount, size } = req.body;
+  const { payer, description, participants, amount, size } = req.body;
   const trip = await getTrip(parseInt(tripId));
 
   let friends = trip.friends;
@@ -30,14 +30,14 @@ export const addExpense = async (
     return;
   }
 
-  for (const f of involved) {
+  for (const f of participants) {
     if (!(f in friends)) {
       next(HttpError(400, `${f} is not inside the trip`));
       return;
     }
   }
 
-  for (const f of involved) {
+  for (const f of participants) {
     friends[f].spent += amt;
     if (f !== payer) {
       friends[f].net -= amt;
@@ -45,10 +45,22 @@ export const addExpense = async (
     }
   }
 
+  console.log(JSON.stringify(participants));
+
   updateTotal(parseInt(tripId), trip.total + amount);
   updateFriends(parseInt(tripId), JSON.stringify(friends));
+  insertExpense(parseInt(tripId), description, amount, payer, JSON.stringify(participants));
   res.send({});
 };
+
+export const viewEpenses = async (
+  req: Request,
+  res: Response,
+) => {
+  const { tripId } = req.params;
+  const expenses = await getExpenses(parseInt(tripId));
+  res.send(expenses);
+}
 
 export const settle = async (
   req: Request,

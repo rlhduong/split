@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { sessionValidation } from '../middleware/auth';
 import { tripValidation } from '../middleware/trip';
-import { addExpense, settle } from '../controllers/expense';
+import { addExpense, viewEpenses, settle } from '../controllers/expense';
 
 const router = Router();
 
@@ -13,10 +13,17 @@ router.post(
 );
 
 router.get(
+  '/trips/:tripId/expenses',
+  sessionValidation,
+  tripValidation,
+  viewEpenses
+);
+
+router.get(
   '/trips/:tripId/expenses/settle',
   sessionValidation,
   tripValidation,
   settle
-)
+);
 
 export default router;

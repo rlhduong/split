@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3';
-import { AppTrip, DbTrip, Friends } from './utils/interface';
+import { DbTrip, DbExpense } from './utils/interface';
 const sql3 = sqlite3.verbose();
 let sql;
 
@@ -33,8 +33,24 @@ export function setUp() {
   destination TEXT NOT NULL,
   start_date TEXT NOT NULL,
   friends TEXT NOT NULL,
-  total INTEGER NOT NULL,
+  total REAL NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
+  )`;
+
+  DB.run(sql, [], (err) => {
+    if (err) {
+      console.error('Error creating table:', err.message);
+    }
+  });
+
+  sql = `CREATE TABLE IF NOT EXISTS expenses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  trip_id INTEGER NOT NULL,
+  description TEXT NOT NULL,
+  amount REAL NOT NULL,
+  payer INTEGER NOT NULL,
+  participants TEXT NOT NULL,
+  FOREIGN KEY (trip_id) REFERENCES trips (id)
   )`;
 
   DB.run(sql, [], (err) => {
@@ -170,14 +186,51 @@ export async function updateFriends(tripId: number, friends: string) {
   });
 }
 
+export async function insertExpense(
+  tripId: number,
+  description: string,
+  amount: number,
+  payer: number,
+  participants: string
+) {
+  sql = `INSERT INTO expenses (trip_id, description, amount, payer, participants) VALUES (?,?,?,?,?)`;
+  DB.run(sql, [tripId, description, amount, payer, participants], (err) => {
+    if (err) {
+      console.error('Error inserting expense:', err.message);
+    }
+  });
+}
+
+export async function getExpenses(tripId: number) {
+  return new Promise((resolve, reject) => {
+    sql = `SELECT * from expenses where trip_id = ?`;
+    DB.all(sql, [tripId], (err, rows: Array<DbExpense>) => {
+      if (err) {
+        reject(err);
+      } else {
+        for (const row of rows) {
+          row.participants = JSON.parse(row.participants);
+        }
+        resolve(rows);
+      }
+    });
+  });
+}
+
 export function reset() {
-  DB.run('DELETE FROM users', [], (err) => {
+  DB.run('DROP TABLE users', [], (err) => {
     if (err) {
       console.error('Error clearing table:', err.message);
     }
   });
 
-  DB.run('DELETE FROM trips', [], (err) => {
+  DB.run('DROP TABLE trips', [], (err) => {
+    if (err) {
+      console.error('Error clearing table:', err.message);
+    }
+  });
+
+  DB.run('DROP TABLE expenses', [], (err) => {
     if (err) {
       console.error('Error clearing table:', err.message);
     }

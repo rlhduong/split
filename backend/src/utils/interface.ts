@@ -18,6 +18,15 @@ export interface DbTrip {
   total: number;
 }
 
+export interface DbExpense {
+  id: number;
+  trip_id: number;
+  description: string;
+  amount: number;
+  payer: string;
+  participants: string;
+}
+
 export interface AppTrip {
   id: number;
   user_id: number;
