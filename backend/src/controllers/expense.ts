@@ -30,7 +30,7 @@ export const addExpense = async (
   const { payer, description, participants, amount, size } = req.body;
   const trip = await getTrip(parseInt(tripId));
 
-  let friends = trip.friends;
+  const friends = trip.friends;
   const amt = amount / size;
 
   if (!(payer in friends)) {
@@ -81,7 +81,7 @@ export const deleteExpense = async (req: Request, res: Response) => {
   const amt = expense.amount / expense.participants.length;
   trip.total -= expense.amount;
 
-  let friends = trip.friends;
+  const friends = trip.friends;
 
   for (const f of expense.participants) {
     friends[f].spent -= amt;
@@ -100,7 +100,7 @@ export const deleteExpense = async (req: Request, res: Response) => {
 export const settle = async (req: Request, res: Response) => {
   const { tripId } = req.params;
   const trip = await getTrip(parseInt(tripId));
-  let friends = trip.friends;
+  const friends = trip.friends;
   const ret: Array<Array<string>> = [];
   const arr = [];
   for (const [f, data] of Object.entries(friends)) {
