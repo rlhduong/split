@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
+let theme = createTheme({});
+theme = createTheme(theme, {
   palette: {
     primary: {
       main: '#3c37a4',
@@ -8,6 +9,12 @@ const theme = createTheme({
     secondary: {
       main: '#dddbff',
     },
+    accent: theme.palette.augmentColor({
+      color: {
+        main: '#443dff',
+      },
+      name: 'violet',
+    }),
   },
 });
 
