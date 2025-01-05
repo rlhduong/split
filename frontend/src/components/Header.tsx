@@ -9,15 +9,21 @@ const s1 = {
 const Header = () => {
   return (
     <header>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Box sx={s1}>
           <Toolbar sx={{ width: '75%' }}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Split
             </Typography>
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">About</Button>
-            <Button color="inherit">Contact</Button>
+            <Button color="inherit" sx={{ textTransform: ' none' }}>
+              Home
+            </Button>
+            <Button color="inherit" sx={{ textTransform: ' none' }}>
+              About
+            </Button>
+            <Button color="inherit" sx={{ textTransform: ' none' }}>
+              Contact
+            </Button>
           </Toolbar>
         </Box>
       </AppBar>
