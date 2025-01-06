@@ -6,10 +6,8 @@ import passport from 'passport';
 import './utils/interface';
 var SQLiteStore = require('connect-sqlite3')(session);
 
-import YAML from 'yaml';
 import sui from 'swagger-ui-express';
-import fs from 'fs';
-import path from 'path';
+import sjsdoc from 'swagger-jsdoc';
 import process from 'process';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -50,22 +48,26 @@ app.use(trips);
 app.use(auth);
 app.use(expense);
 
-const file = fs.readFileSync(path.join(process.cwd(), 'swagger.yaml'), 'utf8');
-app.get('/', (req: Request, res: Response) => res.redirect('/docs'));
-app.use(
-  '/docs',
-  sui.serve,
-  sui.setup(YAML.parse(file), {
-    swaggerOptions: { docExpansion: 'list' },
-  })
-);
-
 app.delete('/clear', (req: Request, res: Response) => {
   reset();
   res.send({});
 });
 
 app.use(errorHandler());
+
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'My API',
+      version: '1.0.0',
+      description: 'This is a sample Express API',
+    },
+  },
+  apis: ['./src/routes/*.ts'],
+};
+const docs = sjsdoc(swaggerOptions);
+app.use('/docs', sui.serve,  sui.setup(docs));
 
 app.listen(PORT, () => {
   console.log(`Running on Port ${PORT}`);
