@@ -19,4 +19,8 @@ router.post(
 
 router.post('/admin/auth/logout', sessionValidation, handleLogout);
 
+router.get('/admin/auth/status', sessionValidation, (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 export default router;

@@ -264,7 +264,6 @@ export function reset() {
       console.error('Error clearing table:', err.message);
     }
   });
-  setUp();
 }
 
 export function checkDB() {

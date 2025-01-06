@@ -22,7 +22,7 @@ export const sessionValidation = (
   next: NextFunction
 ) => {
   if (!req.user) {
-    next(HttpError(401, 'Unauthorized'));
+    next(HttpError(401, 'Unauthorized access'));
     return;
   }
   next();
