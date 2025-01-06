@@ -1,17 +1,23 @@
 import { TextField, Box, Button } from '@mui/material';
 import { FC, useState } from 'react';
 import { RequestHelper } from '../../utilities/helper';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../../store/loggedin';
 
 const request = new RequestHelper();
 
 interface SignProps {
   handleOpenAlert: (message: string) => void;
-  handleClose: () => void
+  handleClose: () => void;
 }
 
 interface KeyDownEvent extends React.KeyboardEvent<HTMLDivElement> {}
 
 const SignUp: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -41,6 +47,8 @@ const SignUp: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
     }
 
     handleClose();
+    dispatch(setLogin());
+    navigate('/dashboard');
   };
 
   const handleKeyDown = (e: KeyDownEvent) => {

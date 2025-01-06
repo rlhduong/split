@@ -1,6 +1,11 @@
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
 import { FC } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLogout } from '../store/loggedin';
+import { RequestHelper } from '../utilities/helper';
+import { useNavigate } from 'react-router-dom';
 
+const request = new RequestHelper();
 interface FormProps {
   handleOpen: (type: boolean) => void;
 }
@@ -12,6 +17,18 @@ const s1 = {
 };
 
 const Header: FC<FormProps> = ({ handleOpen }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const status = useSelector((state: any) => state.status);
+
+  const logout = async () => {
+    const res = await request.post('/admin/auth/logout');
+    if (res.status === 200) {
+      dispatch(setLogout());
+      navigate('/');
+    }
+  };
+
   return (
     <header>
       <AppBar position="static" color="primary">
@@ -20,34 +37,46 @@ const Header: FC<FormProps> = ({ handleOpen }) => {
             <Typography variant="h6" component="div">
               Split
             </Typography>
-            <Box>
-              <Button color="inherit" sx={{ textTransform: ' none' }}>
-                Home
-              </Button>
-              <Button color="inherit" sx={{ textTransform: ' none' }}>
-                About
-              </Button>
-              <Button color="inherit" sx={{ textTransform: ' none' }}>
-                Contact
-              </Button>
-            </Box>
-            <Box>
+            {status.loggedIn ? (
               <Button
-                color="secondary"
-                sx={{ textTransform: ' none', marginRight: '1rem' }}
-                onClick={() => handleOpen(true)}
-              >
-                Sign in
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
+                color="inherit"
                 sx={{ textTransform: ' none' }}
-                onClick={() => handleOpen(false)}
+                onClick={logout}
               >
-                <Typography color='black'>Sign up</Typography>
+                Log out
               </Button>
-            </Box>
+            ) : (
+              <>
+                <Box>
+                  <Button color="inherit" sx={{ textTransform: ' none' }}>
+                    Home
+                  </Button>
+                  <Button color="inherit" sx={{ textTransform: ' none' }}>
+                    About
+                  </Button>
+                  <Button color="inherit" sx={{ textTransform: ' none' }}>
+                    Contact
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    color="secondary"
+                    sx={{ textTransform: ' none', marginRight: '1rem' }}
+                    onClick={() => handleOpen(true)}
+                  >
+                    Sign in
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ textTransform: ' none' }}
+                    onClick={() => handleOpen(false)}
+                  >
+                    <Typography color="black">Sign up</Typography>
+                  </Button>
+                </Box>
+              </>
+            )}
           </Toolbar>
         </Box>
       </AppBar>

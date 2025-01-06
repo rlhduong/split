@@ -13,7 +13,7 @@ export class RequestHelper {
     }
   }
 
-  public async post(url: string, body: any) {
+  public async post(url: string, body: any = {}) {
     try {
       const res = await axios.post(BASE_URL + url, body);
       return res;

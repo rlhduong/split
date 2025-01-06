@@ -1,6 +1,9 @@
 import { TextField, Box, Button } from '@mui/material';
 import { FC, useState } from 'react';
 import { RequestHelper } from '../../utilities/helper';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../../store/loggedin';
 
 const request = new RequestHelper();
 
@@ -11,6 +14,9 @@ interface SignProps {
 interface KeyDownEvent extends React.KeyboardEvent<HTMLDivElement> {}
 
 const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,6 +33,8 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
     }
 
     handleClose();
+    dispatch(setLogin());
+    navigate('/dashboard');
   };
 
   const handleKeyDown = (e: KeyDownEvent) => {

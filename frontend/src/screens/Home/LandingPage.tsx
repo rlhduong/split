@@ -3,6 +3,8 @@ import Hero from './Hero';
 import Form from './Form';
 import { Box } from '@mui/material';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const s1 = {
   minHeight: '100vh',
@@ -15,6 +17,11 @@ const LandingPage = () => {
   const [openForm, setOpenForm] = useState(false);
   const [signIn, setSignIn] = useState(true);
 
+  const status = useSelector((state: any) => state.status);
+  if (status.loggedIn) {
+    return <Navigate to="/dashboard" />;
+  }
+
   const openModal = (type: boolean) => {
     setSignIn(type);
     setOpenForm(true);
@@ -26,9 +33,9 @@ const LandingPage = () => {
 
   return (
     <Box sx={s1}>
-      <Header handleOpen={openModal}/>
+      <Header handleOpen={openModal} />
       <Hero />
-      <Form open={openForm} type={signIn} handleClose={handleClose}/>
+      <Form open={openForm} type={signIn} handleClose={handleClose} />
     </Box>
   );
 };
