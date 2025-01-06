@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import useOpenForm from '../../hooks/useOpenForm';
 
 const s1 = {
   minHeight: '100vh',
@@ -14,7 +15,7 @@ const s1 = {
 };
 
 const LandingPage = () => {
-  const [openForm, setOpenForm] = useState(false);
+  const {openForm, handleOpenForm, handleCloseForm} = useOpenForm();
   const [signIn, setSignIn] = useState(true);
 
   const status = useSelector((state: any) => state.status);
@@ -24,18 +25,14 @@ const LandingPage = () => {
 
   const openModal = (type: boolean) => {
     setSignIn(type);
-    setOpenForm(true);
-  };
-
-  const handleClose = () => {
-    setOpenForm(false);
+    handleOpenForm();
   };
 
   return (
     <Box sx={s1}>
       <Header handleOpen={openModal} />
       <Hero />
-      <Form open={openForm} type={signIn} handleClose={handleClose} />
+      <Form open={openForm} type={signIn} handleClose={handleCloseForm} />
     </Box>
   );
 };
