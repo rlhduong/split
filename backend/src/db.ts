@@ -1,10 +1,10 @@
-import sqlite3 from 'sqlite3';
-import { DbTrip, DbExpense } from './utils/interface';
+import sqlite3 from "sqlite3";
+import { DbTrip, DbExpense } from "./utils/interface";
 const sql3 = sqlite3.verbose();
 let sql;
 
 const DB = new sql3.Database(
-  './src/database.db',
+  "./src/database.db",
   sqlite3.OPEN_READWRITE,
   (err) => {
     if (err) {
@@ -25,23 +25,25 @@ export function setUp() {
 
   DB.run(sql, [], (err) => {
     if (err) {
-      console.error('Error creating table:', err.message);
+      console.error("Error creating table:", err.message);
     }
   });
 
   sql = `CREATE TABLE IF NOT EXISTS trips (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER NOT NULL,
+  trip_name TEXT NOT NULL,
   destination TEXT NOT NULL,
   start_date TEXT NOT NULL,
   friends TEXT NOT NULL,
+  budget REAL NOT NULL,
   total REAL NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
   )`;
 
   DB.run(sql, [], (err) => {
     if (err) {
-      console.error('Error creating table:', err.message);
+      console.error("Error creating table:", err.message);
     }
   });
 
@@ -57,7 +59,7 @@ export function setUp() {
 
   DB.run(sql, [], (err) => {
     if (err) {
-      console.error('Error creating table:', err.message);
+      console.error("Error creating table:", err.message);
     }
   });
 }
@@ -99,22 +101,28 @@ export async function insertUser(
   sql = `INSERT INTO users (username, password, firstname, lastname) VALUES (?, ?, ? , ?)`;
   DB.run(sql, [username, password, firstname, lastname], (err) => {
     if (err) {
-      console.error('Error inserting user:', err.message);
+      console.error("Error inserting user:", err.message);
     }
   });
 }
 
 export async function insertTrip(
   user_id: number,
+  tripName: string,
   destination: string,
-  start_date: string
+  startDate: string,
+  budget: number
 ) {
-  sql = `INSERT INTO trips (user_id, destination, start_date, friends, total) VALUES (?,?,?,?,?)`;
-  DB.run(sql, [user_id, destination, start_date, '{}', 0], (err) => {
-    if (err) {
-      console.log('Error inserting trip:', err.message);
+  sql = `INSERT INTO trips (user_id, trip_name, destination, start_date, friends, budget, total) VALUES (?,?,?,?,?,?,?)`;
+  DB.run(
+    sql,
+    [user_id, tripName, destination, startDate, "{}", budget, 0],
+    (err) => {
+      if (err) {
+        console.log("Error inserting trip:", err.message);
+      }
     }
-  });
+  );
 }
 
 export async function getTrip(tripId: number): Promise<Express.Trip> {
@@ -127,8 +135,8 @@ export async function getTrip(tripId: number): Promise<Express.Trip> {
         resolve({
           id: row ? row.id : -404,
           user_id: row ? row.user_id : -404,
-          destination: row ? row.destination : '',
-          start_date: row ? row.start_date : '',
+          destination: row ? row.destination : "",
+          start_date: row ? row.start_date : "",
           friends: row ? JSON.parse(row.friends) : {},
           total: row ? row.total : 0,
         });
@@ -161,7 +169,7 @@ export async function updateTrip(
   sql = `UPDATE trips SET destination = ?, start_date = ? WHERE id = ?`;
   DB.run(sql, [destination, startDate, tripId], (err) => {
     if (err) {
-      console.error('Error updating trip:', err.message);
+      console.error("Error updating trip:", err.message);
     }
   });
 }
@@ -170,7 +178,7 @@ export async function updateTotal(tripId: number, total: number) {
   sql = `UPDATE trips SET total = ? WHERE id = ?`;
   DB.run(sql, [total, tripId], (err) => {
     if (err) {
-      console.error('Error updating trip:', err.message);
+      console.error("Error updating trip:", err.message);
     }
   });
 }
@@ -179,16 +187,16 @@ export async function deleteTrip(tripId: number) {
   sql = `DELETE FROM trips WHERE id = ?`;
   DB.run(sql, [tripId], (err) => {
     if (err) {
-      console.error('Error deleting trip:', err.message);
+      console.error("Error deleting trip:", err.message);
     }
   });
 }
 
 export async function updateFriends(tripId: number, friends: string) {
-  sql = 'UPDATE trips SET friends = ? WHERE id = ?';
+  sql = "UPDATE trips SET friends = ? WHERE id = ?";
   DB.run(sql, [friends, tripId], (err) => {
     if (err) {
-      console.error('Error updating trip:', err.message);
+      console.error("Error updating trip:", err.message);
     }
   });
 }
@@ -203,7 +211,7 @@ export async function insertExpense(
   sql = `INSERT INTO expenses (trip_id, description, amount, payer, participants) VALUES (?,?,?,?,?)`;
   DB.run(sql, [tripId, description, amount, payer, participants], (err) => {
     if (err) {
-      console.error('Error inserting expense:', err.message);
+      console.error("Error inserting expense:", err.message);
     }
   });
 }
@@ -218,9 +226,9 @@ export function getExpense(expenseId: number): Promise<Express.Expense> {
         resolve({
           id: row ? row.id : -404,
           trip_id: row ? row.trip_id : -404,
-          description: row ? row.description : '',
+          description: row ? row.description : "",
           amount: row ? row.amount : 0,
-          payer: row ? row.payer : '',
+          payer: row ? row.payer : "",
           participants: row ? JSON.parse(row.participants) : [],
         });
       }
@@ -248,36 +256,36 @@ export async function deleteExpense(expenseId: number) {
   sql = `DELETE FROM expenses WHERE id = ?`;
   DB.run(sql, [expenseId], (err) => {
     if (err) {
-      console.error('Error deleting expense:', err.message);
+      console.error("Error deleting expense:", err.message);
     }
   });
 }
 
 export function reset() {
-  DB.run('DROP TABLE users', [], (err) => {
+  DB.run("DROP TABLE users", [], (err) => {
     if (err) {
-      console.error('Error clearing table:', err.message);
+      console.error("Error clearing table:", err.message);
     }
   });
 
-  DB.run('DROP TABLE trips', [], (err) => {
+  DB.run("DROP TABLE trips", [], (err) => {
     if (err) {
-      console.error('Error clearing table:', err.message);
+      console.error("Error clearing table:", err.message);
     }
   });
 
-  DB.run('DROP TABLE expenses', [], (err) => {
+  DB.run("DROP TABLE expenses", [], (err) => {
     if (err) {
-      console.error('Error clearing table:', err.message);
+      console.error("Error clearing table:", err.message);
     }
   });
 }
 
 export function checkDB() {
-  sql = 'SELECT * FROM users';
+  sql = "SELECT * FROM users";
   DB.all(sql, [], (err, rows) => {
     if (err) {
-      console.error('Error fetching users:', err.message);
+      console.error("Error fetching users:", err.message);
       return;
     } else {
       for (const row of rows) {
@@ -289,7 +297,7 @@ export function checkDB() {
   sql = `SELECT * FROM trips`;
   DB.all(sql, [], (err, rows) => {
     if (err) {
-      console.error('Error fetching trips:', err.message);
+      console.error("Error fetching trips:", err.message);
       return;
     } else {
       for (const row of rows) {

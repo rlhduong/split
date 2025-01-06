@@ -1,8 +1,9 @@
 import { Typography, Box, Modal, Fade, Backdrop } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import ErrorAlert from '../../components/ErrorAlert';
+import useAlert from '../../hooks/useAlert';
 
 interface FormProps {
   open: boolean;
@@ -21,18 +22,7 @@ const style = {
 };
 
 const Form: FC<FormProps> = ({ open, type, handleClose }) => {
-  const [openAlert, setOpenAlert] = useState(false);
-  const [error, setError] = useState('');
-
-  const handleOpenAlert = (message: string) => {
-    setError(message);
-    setOpenAlert(true);
-  };
-
-  const handleCloseAlert = () => {
-    setError('');
-    setOpenAlert(false);
-  };
+  const {openAlert, error, handleOpenAlert, handleCloseAlert } = useAlert();
 
   const reset = () => {
     handleClose();

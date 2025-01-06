@@ -10,8 +10,8 @@ import {
 import HttpError from 'http-errors';
 
 export const createTrip = async (req: Request, res: Response) => {
-  const { destination, startDate } = req.body;
-  insertTrip(req.session.passport?.user || 0, destination, startDate);
+  const { tripName, destination, startDate, budget } = req.body;
+  insertTrip(req.session.passport?.user || 0, tripName, destination, startDate, budget);
   res.send({});
 };
 
