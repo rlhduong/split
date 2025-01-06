@@ -37,7 +37,10 @@ const Form: FC<FormProps> = ({ open, type, handleClose }) => {
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={() => {
+        handleClose();
+        handleCloseAlert();
+      }}
       aria-labelledby="auth-dialog"
       aria-describedby="sign-in-or-sign-up"
       closeAfterTransition
@@ -57,7 +60,11 @@ const Form: FC<FormProps> = ({ open, type, handleClose }) => {
           >
             {type ? 'Welcome back 👋' : 'Sign up'}
           </Typography>
-          {type ? <SignIn handleOpenAlert={handleOpenAlert} /> : <SignUp />}
+          {type ? (
+            <SignIn handleOpenAlert={handleOpenAlert} />
+          ) : (
+            <SignUp handleOpenAlert={handleOpenAlert} />
+          )}
           <ErrorAlert
             open={openAlert}
             message={error}

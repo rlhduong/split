@@ -34,7 +34,7 @@ const Right = () => {
         marginBottom={'1.5rem'}
         fontSize={{ xs: '2.5rem', md: '4rem' }}
       >
-        made easier
+        made simple
       </Typography>
       <Typography
         variant="h4"

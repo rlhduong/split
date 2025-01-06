@@ -14,8 +14,12 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert }) => {
   const [password, setPassword] = useState('');
 
   const login = async () => {
-    const res = await request.post('/admin/auth/login', { username, password });
+    if (username === '' || password === '') {
+      handleOpenAlert('Please fill in all fields');
+      return;
+    }
 
+    const res = await request.post('/admin/auth/login', { username, password });
     if (res.status !== 200) {
       handleOpenAlert('Invalid username or password');
       return;
@@ -24,6 +28,7 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert }) => {
 
   const handleKeyDown = (e: KeyDownEvent) => {
     if (e.key === 'Enter') {
+      login();
     }
   };
 
