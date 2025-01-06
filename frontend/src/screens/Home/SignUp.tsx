@@ -6,11 +6,12 @@ const request = new RequestHelper();
 
 interface SignProps {
   handleOpenAlert: (message: string) => void;
+  handleClose: () => void
 }
 
 interface KeyDownEvent extends React.KeyboardEvent<HTMLDivElement> {}
 
-const SignUp: FC<SignProps> = ({ handleOpenAlert }) => {
+const SignUp: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -38,6 +39,8 @@ const SignUp: FC<SignProps> = ({ handleOpenAlert }) => {
       handleOpenAlert(res.data.error);
       return;
     }
+
+    handleClose();
   };
 
   const handleKeyDown = (e: KeyDownEvent) => {

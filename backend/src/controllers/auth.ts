@@ -9,7 +9,7 @@ export const handleRegister = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password } = req.body;
+  const { username, password, firstname, lastname } = req.body;
   let user = await getUser(username);
 
   if (user) {
@@ -17,7 +17,7 @@ export const handleRegister = async (
     return;
   }
 
-  await insertUser(username, hashPassword(password));
+  await insertUser(username, hashPassword(password), firstname, lastname);
   user = await getUser(username);
 
   if (user) {

@@ -6,10 +6,11 @@ const request = new RequestHelper();
 
 interface SignProps {
   handleOpenAlert: (message: string) => void;
+  handleClose: () => void;
 }
 interface KeyDownEvent extends React.KeyboardEvent<HTMLDivElement> {}
 
-const SignIn: FC<SignProps> = ({ handleOpenAlert }) => {
+const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,6 +25,8 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert }) => {
       handleOpenAlert('Invalid username or password');
       return;
     }
+
+    handleClose();
   };
 
   const handleKeyDown = (e: KeyDownEvent) => {

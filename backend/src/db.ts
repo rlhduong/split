@@ -18,7 +18,9 @@ export function setUp() {
   sql = `CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    firstname TEXT,
+    lastname TEXT
   )`;
 
   DB.run(sql, [], (err) => {
@@ -88,9 +90,14 @@ export const getUserById = async (id: number): Promise<Express.User> => {
   });
 };
 
-export async function insertUser(username: string, password: string) {
-  sql = `INSERT INTO users (username, password) VALUES (?, ?)`;
-  DB.run(sql, [username, password], (err) => {
+export async function insertUser(
+  username: string,
+  password: string,
+  firstname: string,
+  lastname: string
+) {
+  sql = `INSERT INTO users (username, password, firstname, lastname) VALUES (?, ?, ? , ?)`;
+  DB.run(sql, [username, password, firstname, lastname], (err) => {
     if (err) {
       console.error('Error inserting user:', err.message);
     }
