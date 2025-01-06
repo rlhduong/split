@@ -45,7 +45,7 @@ const Header: FC<FormProps> = ({ handleOpen }) => {
                 sx={{ textTransform: ' none' }}
                 onClick={() => handleOpen(false)}
               >
-                <Typography>Sign up</Typography>
+                <Typography color='black'>Sign up</Typography>
               </Button>
             </Box>
           </Toolbar>
