@@ -2,7 +2,7 @@ import { Typography, Box, Modal, Fade, Backdrop } from '@mui/material';
 import { FC, useState } from 'react';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import ErrorAlert from './ErrorAlert';
+import ErrorAlert from '../../components/ErrorAlert';
 
 interface FormProps {
   open: boolean;
