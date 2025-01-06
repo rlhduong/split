@@ -1,19 +1,27 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 let theme = createTheme({});
 theme = createTheme(theme, {
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 400,
+      laptop: 1024,
+      desktop: 1200,
+    },
+  },
   palette: {
     primary: {
-      main: '#3c37a4',
+      main: "#3c37a4",
     },
     secondary: {
-      main: '#dddbff',
+      main: "#dddbff",
     },
     accent: theme.palette.augmentColor({
       color: {
-        main: '#443dff',
+        main: "#443dff",
       },
-      name: 'violet',
+      name: "violet",
     }),
   },
 });

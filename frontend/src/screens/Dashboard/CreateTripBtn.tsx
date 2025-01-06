@@ -6,7 +6,7 @@ const s1 = {
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  width: { xs: "70%", sm: "50%", md: "40%" },
+  width: { xs: "70%", sm: "50%", md: "45%" },
   height: "30%",
   justifyContent: "center",
   backgroundColor: "rgba(0, 0, 0, 0.15)",
@@ -18,7 +18,7 @@ const s1 = {
 };
 
 const s2 = {
-  fontSize: { xs: "16px", sm: "16px", md: "2rem", lg: "3rem", xl: "3rem" },
+  fontSize: { xs: "16px", sm: "16px", md: "2rem", lg: "2.5rem", xl: "2.5rem" },
   padding: "20px 40px 20px 40px",
   color: "white",
   borderRadius: "15px",
