@@ -5,8 +5,8 @@ import { setLogin } from './store/loggedin';
 import { RequestHelper } from './utilities/helper';
 import { useEffect } from 'react';
 
-import LandingPage from './screens/Home/LandingPage';
-import Dashboard from './screens/Dashboard/Dashboard';
+import LandingPage from './pages/Home/LandingPage';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 const request = new RequestHelper();
 
