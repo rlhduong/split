@@ -1,16 +1,21 @@
-import { Box, Modal, Fade, Backdrop, Typography } from "@mui/material";
-import { FC, useState } from "react";
-import ErrorAlert from "../../components/ErrorAlert";
-import useAlert from "../../hooks/useAlert";
+import { Box, Modal, Fade, Backdrop, Typography, Button } from '@mui/material';
+import { FC, useState } from 'react';
+import ErrorAlert from '../../components/ErrorAlert';
+import useAlert from '../../hooks/useAlert';
+import Form from './Form';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "90%", sm: "50%", lg: "40%" },
-  bgcolor: "background.paper",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: { xs: '90%', sm: '50%', lg: '40%' },
+  bgcolor: 'background.paper',
   p: 4,
+  borderRadius: '1rem',
+  boxShadow: 24,
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 interface FormProps {
@@ -20,14 +25,23 @@ interface FormProps {
 
 const NewTripModal: FC<FormProps> = ({ open, handleClose }) => {
   const { openAlert, error, handleOpenAlert, handleCloseAlert } = useAlert();
-  const { destination, setDestination } = useState(new Date());
-  const { startDate, setStartDate } = useState();
-  const { budget, setBudget } = useState(0);
-
+  const [tripName, setTripName] = useState('');
+  const [destination, setDestination] = useState('');
+  const [date, setDate] = useState('');
 
   const reset = () => {
     handleClose();
     handleCloseAlert();
+  };
+
+  const handleCreate = () => {
+    if (destination === '' || date === '' || tripName === '') {
+      handleOpenAlert('Please fill in all fields');
+      return;
+    }
+    console.log('Trip name:', tripName);
+    console.log('Destination:', destination);
+    console.log('Date:', date);
   };
 
   return (
@@ -46,11 +60,36 @@ const NewTripModal: FC<FormProps> = ({ open, handleClose }) => {
     >
       <Fade in={open}>
         <Box sx={style}>
-          <Typography variant="h2" component="h2" fontSize='1.5rem' mb='1rem' fontWeight="400">Start a new trip </Typography>
-          <Typography variant="h4" component="h4" fontSize='1rem'>What is your trip called?</Typography> 
-          <Typography variant="h4" component="h4" fontSize='1rem'>What is your destination?</Typography>
-          <Typography variant="h4" component="h4" fontSize='1rem'>When are you starting</Typography>
-          <Typography variant="h4" component="h4" fontSize='1rem'>What is your budget?</Typography>   
+          <Typography
+            variant="h2"
+            component="h2"
+            fontSize="1.5rem"
+            mb="1rem"
+            fontWeight="400"
+          >
+            Start a new trip
+          </Typography>
+          <Form
+            handleChangeTripName={setTripName}
+            handleChangeCountry={setDestination}
+            handleChangeDate={setDate}
+          />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2rem',
+            }}
+          >
+            <Button
+              size="medium"
+              variant="contained"
+              sx={{ width: '30%', textTransform: 'none' }}
+              onClick={handleCreate}
+            >
+              Create
+            </Button>
+          </div>
           <ErrorAlert
             open={openAlert}
             message={error}
