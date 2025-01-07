@@ -1,5 +1,10 @@
 import { Container, Typography } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { FC } from "react";
+
+interface CreateProps {
+  handleOpenForm: () => void;
+}
 
 const s1 = {
   borderRadius: "14px",
@@ -15,6 +20,7 @@ const s1 = {
     backgroundColor: "rgba(0, 0, 0, 0.25)",
     transform: "scale(1.05)",
   },
+  cursor: "pointer",
 };
 
 const s2 = {
@@ -22,12 +28,15 @@ const s2 = {
   padding: "20px 40px 20px 40px",
   color: "white",
   borderRadius: "15px",
-  cursor: "pointer",
 };
 
-const CreateTripBtn = () => {
+const CreateTripBtn: FC<CreateProps> = ({ handleOpenForm }) => {
   return (
-    <Container sx={s1} id="create-presentation-btn">
+    <Container
+      sx={s1}
+      id="create-presentation-btn"
+      onClick={() => handleOpenForm()}
+    >
       <Typography sx={s2} variant="h1">
         New Presentation
       </Typography>

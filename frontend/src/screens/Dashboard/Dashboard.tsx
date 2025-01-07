@@ -1,6 +1,8 @@
 import Header from '../../components/Header';
 import CreateTripBtn from './CreateTripBtn';
+import NewTripModal from './NewTripModal';
 import { Box } from '@mui/material';
+import useOpenForm from '../../hooks/useOpenForm';
 
 const s1 = {
   minHeight: '100vh',
@@ -18,11 +20,14 @@ const s2 = {
 }
 
 const Dashboard = () => {
+  const {openForm, handleOpenForm, handleCloseForm} = useOpenForm();
+
   return (
     <Box sx={s1}>
       <Header handleOpen={() => {}} />
       <Box sx={s2}>
-        <CreateTripBtn/>
+        <CreateTripBtn handleOpenForm={handleOpenForm}/>
+        <NewTripModal open={openForm} handleClose={handleCloseForm}/>
       </Box>
     </Box>
   );
