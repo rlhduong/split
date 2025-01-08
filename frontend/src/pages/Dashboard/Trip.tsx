@@ -1,15 +1,17 @@
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 
 const s1 = {
   width: { xs: '100%', sm: '45%', lg: '30%' },
-  aspectRatio: '2/1',
+  aspectRatio: '5/2',
   borderRadius: '10px',
   border: '1.5px solid #1E2E3F',
   display: 'flex',
   flexDirection: 'row',
-  padding: { xs: '6%', sm: '2.5%', md: '2%' },
-  paddingLeft: { xs: '6%', sm: '1%', md: '1%' },
   boxSizing: 'border-box',
   transition: 'background-color 0.3s ease, transform 0.4s ease',
   color: '#E4EEF6',
@@ -17,11 +19,7 @@ const s1 = {
     transform: 'scale(1.05)',
   },
   cursor: 'pointer',
-};
-
-const s2 = {
-  height: '100%',
-  aspectRatio: '1/1',
+  backgroundColor: 'transparent',
 };
 
 interface TripProps {
@@ -32,34 +30,31 @@ interface TripProps {
 
 const Trip: FC<TripProps> = ({ tripName, destination, startDate }) => {
   return (
-    <Box sx={s1}>
-      <Box sx={s2}></Box>
-      <Box sx={{ ...s2, padding: '0 0 0 3%' }}>
-        <Typography
-          variant="h4"
-          fontSize={{ xs: '1.3rem', sm: '1.2rem', md: '1.8rem' }}
-          mb="0.5rem"
-        >
-          {tripName}
-        </Typography>
-        <Typography
-          variant="body1"
-          fontSize={{ xs: '0.9rem', sm: '0.8rem', md: '1rem' }}
-          mb="0.5rem"
-          color="#7C8288"
-        >
-          {destination}
-        </Typography>
-        <Typography
-          variant="body1"
-          fontSize={{ xs: '1rem', sm: '0.9rem', md: '1.1rem' }}
-          mb="0.5rem"
-        >
-          {startDate}
-        </Typography>
+    <Card sx={s1}>
+      <CardMedia
+        component="img"
+        sx={{ width: '30%', aspectRatio: '1/1', padding: '5%' }}
+        image="./src/assets/images/lol.JPG"
+        alt="s"
+      />
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flex: '1 0 auto' }}>
+          <Typography component="div" variant="h6">
+            {tripName}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            sx={{ color: '#7C8288' }}
+          >
+            {destination}
+          </Typography>
+          <Typography variant="subtitle2" component="div">
+            {startDate}
+          </Typography>
+        </CardContent>
       </Box>
-    </Box>
+    </Card>
   );
 };
-
 export default Trip;
