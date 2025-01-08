@@ -4,21 +4,7 @@ import ErrorAlert from '../../components/ErrorAlert';
 import useAlert from '../../hooks/useAlert';
 import Form from './Form';
 import { request } from '../../utilities/helper';
-
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: { xs: '90%', sm: '50%', lg: '40%' },
-  bgcolor: 'background.paper',
-  p: 4,
-  borderRadius: '1rem',
-  boxShadow: 24,
-  display: 'flex',
-  flexDirection: 'column',
-};
+import { formStyle } from '../../const/style';
 
 interface FormProps {
   open: boolean;
@@ -74,7 +60,7 @@ const NewTripModal: FC<FormProps> = ({ open, handleClose, loadTrips }) => {
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box sx={{...formStyle, display: 'flex', flexDirection: 'column', width: { xs: '90%', sm: '50%', lg: '40%' } }}>
           <Typography
             variant="h2"
             component="h2"

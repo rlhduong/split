@@ -1,24 +1,18 @@
 import Header from '../../components/Header';
 import CreateTripBtn from './CreateTripBtn';
 import NewTripModal from './NewTripModal';
+import TripList from './TripList';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { request } from '../../utilities/helper';
+import { pageStyle } from '../../const/style';
 import useOpenForm from '../../hooks/useOpenForm';
 import useTrips from '../../hooks/useTrips';
 
-const s1 = {
-  minHeight: '100vh',
-  display: 'flex',
-  bgcolor: '#FDFAF0',
-  flexDirection: 'column',
-};
-
 const s2 = {
   display: 'flex',
-  justifyContent: 'center',
+  flexDirection: 'column',
   flexGrow: 1,
   width: '100%',
   pt: '2rem',
@@ -42,7 +36,7 @@ const Dashboard = () => {
   }, [status]);
 
   return (
-    <Box sx={s1}>
+    <Box sx={pageStyle}>
       <Header handleOpen={() => {}} />
       <Box sx={s2}>
         <CreateTripBtn handleOpenForm={handleOpenForm} />
@@ -51,6 +45,7 @@ const Dashboard = () => {
           handleClose={handleCloseForm}
           loadTrips={loadTrips}
         />
+        <TripList />
       </Box>
     </Box>
   );

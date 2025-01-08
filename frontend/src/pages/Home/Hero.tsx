@@ -18,7 +18,7 @@ const Left = () => {
 
 const Right = () => {
   return (
-    <Box sx={{ maxWidth: '520px' }}>
+    <Box sx={{ maxWidth: '520px', color: '#e6eef6' }}>
       <Typography
         variant="h1"
         component="h1"
@@ -39,14 +39,21 @@ const Right = () => {
       <Typography
         variant="h4"
         component="div"
-				fontSize={{ xs: '1.3rem', lg: '1.5rem' }}
-				textAlign={{ xs: 'left', sm: 'left' }}
-				marginBottom={'1.5rem'}
+        fontSize={{ xs: '1.3rem', lg: '1.5rem' }}
+        textAlign={{ xs: 'left', sm: 'left' }}
+        marginBottom={'1.5rem'}
       >
         Keep track of your shared expenses and balances with housemates, trips,
         groups, friends, and family.
       </Typography>
-      <Button color="primary" variant='contained'>Get Started</Button>
+      <Button
+        color="primary"
+        variant="contained"
+        size="large"
+        sx={{ textTransform: 'none' }}
+      >
+        Get Started
+      </Button>
     </Box>
   );
 };

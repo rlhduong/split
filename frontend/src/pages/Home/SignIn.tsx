@@ -51,6 +51,7 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
         onChange={(e) => setUsername(e.target.value)}
         onKeyDown={handleKeyDown}
         name="login-username"
+        color="primary"
       />
       <TextField
         label="Password"
@@ -61,12 +62,13 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
         onChange={(e) => setPassword(e.target.value)}
         onKeyDown={handleKeyDown}
         name="login-password"
+        color="primary"
       />
       <Button
         color="primary"
         variant="contained"
         size="medium"
-        sx={{ marginTop: '2rem' }}
+        sx={{ marginTop: '2rem', textTransform: 'none' }}
         onClick={() => login()}
       >
         Sign in

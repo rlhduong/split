@@ -12,11 +12,12 @@ const s1 = {
     '0%': { opacity: 0 },
     '100%': { opacity: 1 },
   },
-  backgroundColor: 'beige',
+  backgroundColor: 'red',
+  width: '70%',
 };
 
 const TripList = () => {
-  return <Container sx={s1} />;
+  return <Container sx={s1}></Container>;
 };
 
 export default TripList;

@@ -1,5 +1,6 @@
 import { Typography, Box, Modal, Fade, Backdrop } from '@mui/material';
 import { FC } from 'react';
+import { formStyle } from '../../const/style';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import ErrorAlert from '../../components/ErrorAlert';
@@ -10,24 +11,14 @@ interface FormProps {
   type: boolean;
   handleClose: () => void;
 }
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: { xs: '90%', sm: '300px' },
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-};
 
 const Form: FC<FormProps> = ({ open, type, handleClose }) => {
-  const {openAlert, error, handleOpenAlert, handleCloseAlert } = useAlert();
+  const { openAlert, error, handleOpenAlert, handleCloseAlert } = useAlert();
 
   const reset = () => {
     handleClose();
     handleCloseAlert();
-  }
+  };
 
   return (
     <Modal
@@ -44,7 +35,7 @@ const Form: FC<FormProps> = ({ open, type, handleClose }) => {
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box sx={{ ...formStyle, width: { xs: '90%', sm: '300px' } }}>
           <Typography
             variant="h5"
             component="h5"

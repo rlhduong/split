@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 let theme = createTheme({});
 theme = createTheme(theme, {
@@ -12,16 +12,16 @@ theme = createTheme(theme, {
   },
   palette: {
     primary: {
-      main: "#3c37a4",
+      main: '#0b5198',
     },
     secondary: {
-      main: "#dddbff",
+      main: '#80b5eb',
     },
     accent: theme.palette.augmentColor({
       color: {
-        main: "#443dff",
+        main: '#2e96ff',
       },
-      name: "violet",
+      name: 'accent',
     }),
   },
 });

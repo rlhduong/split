@@ -14,10 +14,10 @@ const s1 = {
   width: { xs: "70%", sm: "50%", md: "45%" },
   height: "30%",
   justifyContent: "center",
-  backgroundColor: "rgba(0, 0, 0, 0.15)",
+  backgroundColor: "#1E2E3F",
   transition: "background-color 0.3s ease, transform 0.4s ease",
   "&:hover": {
-    backgroundColor: "rgba(0, 0, 0, 0.25)",
+    backgroundColor: "#111920",
     transform: "scale(1.05)",
   },
   cursor: "pointer",
