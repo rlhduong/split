@@ -30,6 +30,7 @@ export interface DbExpense {
 
 export interface AppTrip {
   id: number;
+  trip_name: string;
   user_id: number;
   destination: string;
   start_date: string;

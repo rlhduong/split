@@ -135,6 +135,7 @@ export async function getTrip(tripId: number): Promise<Express.Trip> {
         resolve({
           id: row ? row.id : -404,
           user_id: row ? row.user_id : -404,
+          trip_name: row ? row.trip_name : '',
           destination: row ? row.destination : '',
           start_date: row ? row.start_date : '',
           friends: row ? JSON.parse(row.friends) : {},
