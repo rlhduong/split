@@ -2,10 +2,9 @@ import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
 import { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLogout } from '../store/loggedin';
-import { RequestHelper } from '../utilities/helper';
 import { useNavigate } from 'react-router-dom';
+import { request } from '../utilities/helper';
 
-const request = new RequestHelper();
 interface FormProps {
   handleOpen: (type: boolean) => void;
 }

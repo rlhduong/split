@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export class RequestHelper {
+class RequestHelper {
   public async get(url: string) {
     try {
       const res = await axios.get(BASE_URL + url);
@@ -32,3 +32,5 @@ export class RequestHelper {
     return data;
   }
 }
+
+export const request = new RequestHelper();

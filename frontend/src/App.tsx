@@ -1,14 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
 import { setLogin } from './store/loggedin';
-import { RequestHelper } from './utilities/helper';
+import { request } from './utilities/helper';
 import { useEffect } from 'react';
 
 import LandingPage from './pages/Home/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
-
-const request = new RequestHelper();
 
 function App() {
   const dispatch = useDispatch();

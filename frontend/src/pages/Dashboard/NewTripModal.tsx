@@ -3,9 +3,8 @@ import { FC, useState } from 'react';
 import ErrorAlert from '../../components/ErrorAlert';
 import useAlert from '../../hooks/useAlert';
 import Form from './Form';
-import { RequestHelper } from '../../utilities/helper';
+import { request } from '../../utilities/helper';
 
-const request = new RequestHelper();
 
 const style = {
   position: 'absolute',

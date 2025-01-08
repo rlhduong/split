@@ -1,11 +1,9 @@
 import { TextField, Box, Button } from '@mui/material';
 import { FC, useState } from 'react';
-import { RequestHelper } from '../../utilities/helper';
+import { request } from '../../utilities/helper';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../../store/loggedin';
-
-const request = new RequestHelper();
 
 interface SignProps {
   handleOpenAlert: (message: string) => void;

@@ -23,12 +23,12 @@ const Form: FC<Props> = ({
         size="small"
         sx={{ mb: 1.5 }}
         onChange={(e) => handleChangeTripName(e.target.value)}
+        autoFocus
       />
       <Typography variant="h4" component="h4" fontSize="1rem">
         What is your destination?
       </Typography>
       <CountrySelect handleChangeCountry={handleChangeCountry} />
-      {/* <LocationSelect /> */}
       <Typography variant="h4" component="h4" fontSize="1rem">
         When is your trip starting?
       </Typography>
