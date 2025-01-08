@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trip as T } from '../../hooks/useTrips';
+import { SimpleTrip } from '../../utilities/interface';
 
 const s1 = {
   width: { xs: '100%', sm: '45%', lg: '30%' },
@@ -25,7 +25,7 @@ const s1 = {
 };
 
 interface TripProps {
-  trip: T;
+  trip: SimpleTrip;
 }
 
 const Trip: FC<TripProps> = ({ trip }) => {

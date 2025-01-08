@@ -1,15 +1,9 @@
 import { useState } from 'react';
 import { request } from '../utilities/helper';
-
-export interface Trip {
-  id: number;
-  trip_name: string;
-  destination: string;
-  start_date: string;
-}
+import { SimpleTrip } from '../utilities/interface';
 
 const useTrips = () => {
-  const [trips, setTrips] = useState<Trip[]>([]);
+  const [trips, setTrips] = useState<SimpleTrip[]>([]);
 
   const loadTrips = async () => {
     const res = await request.get('/trips');

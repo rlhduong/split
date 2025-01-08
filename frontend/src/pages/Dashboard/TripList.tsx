@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { FC } from 'react';
-import { Trip as T } from '../../hooks/useTrips';
-import Trip from './Trip';
+import { SimpleTrip } from '../../utilities/interface';
+import Trip from './TripCard';
 
 const s1 = {
   display: 'flex',
@@ -20,13 +20,13 @@ const s1 = {
 };
 
 interface TripListProps {
-  trips: T[];
+  trips: SimpleTrip[];
 }
 
 const TripList: FC<TripListProps> = ({ trips }) => {
   return (
     <Container sx={s1}>
-      {trips.map((trip: T) => (
+      {trips.map((trip: SimpleTrip) => (
         <Trip
           key={`tripId=${trip.id}`}
           trip={trip}

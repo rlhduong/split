@@ -4,15 +4,9 @@ import { pageStyle } from '../../const/style';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { request } from '../../utilities/helper';
-
-interface TripInfo {
-  id: number;
-  trip_name: string;
-  destination: string;
-  start_date: string;
-  friends: string;
-  total: number;
-}
+import { TripInfo } from '../../utilities/interface';
+import SideBar from './Sidebar';
+import Main from './Main';
 
 const styles = {
   main: {
@@ -24,7 +18,13 @@ const styles = {
   top: {
     display: 'flex',
     alignItems: 'baseline',
+  },
+  bot: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     flexGrow: 1,
+    height: '100%',
   },
   btn: {
     ml: 'auto',
@@ -76,6 +76,10 @@ const Trip = () => {
         <Button sx={styles.btn} color="secondary">
           <SettingsSharpIcon />
         </Button>
+      </Box>
+      <Box sx={styles.bot}>
+        <SideBar trip={trip} />
+        <Main trip={trip} />
       </Box>
     </Box>
   );
