@@ -1,29 +1,41 @@
 import { Container } from '@mui/material';
+import { FC } from 'react';
+import { Trip as T } from '../../hooks/useTrips';
 import Trip from './Trip';
 
 const s1 = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   gap: '2.5rem',
   animation: 'fadeIn 0.7s ease-in-out',
   '@keyframes fadeIn': {
     '0%': { opacity: 0 },
     '100%': { opacity: 1 },
   },
-  mt: {xs: '3rem', sm: '5rem'},
+  mt: { xs: '3rem', sm: '4rem', md: '5rem' },
   mb: '5rem',
   width: '75%',
 };
 
-const TripList = () => {
-  return <Container sx={s1}>
-    <Trip />
-    <Trip />
-    <Trip />
-    <Trip />
-  </Container>;
+interface TripListProps {
+  trips: T[];
+}
+
+const TripList: FC<TripListProps> = ({ trips }) => {
+  return (
+    <Container sx={s1}>
+      {trips.map((trip: T) => (
+        <Trip
+          key={`tripId=${trip.id}`}
+          tripName={trip.trip_name}
+          destination={trip.destination}
+          startDate={trip.start_date}
+        />
+      ))}
+    </Container>
+  );
 };
 
 export default TripList;

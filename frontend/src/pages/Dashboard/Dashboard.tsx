@@ -45,7 +45,7 @@ const Dashboard = () => {
           handleClose={handleCloseForm}
           loadTrips={loadTrips}
         />
-        <TripList />
+        <TripList trips={trips}/>
       </Box>
     </Box>
   );

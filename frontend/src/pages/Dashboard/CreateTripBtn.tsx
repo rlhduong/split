@@ -24,7 +24,7 @@ const s1 = {
 };
 
 const s2 = {
-  fontSize: { xs: '16px', sm: '1rem', md: '2rem', lg: '2.5rem', xl: '2.5rem' },
+  fontSize: { xs: '0.9rem', sm: '1rem', md: '2rem', lg: '2.5rem', xl: '2.5rem' },
   padding: '20px 40px 20px 40px',
   color: 'white',
   borderRadius: '15px',

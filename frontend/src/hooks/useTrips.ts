@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { request } from '../utilities/helper';
 
-interface Trip {
+export interface Trip {
   id: number;
-  tripName: string;
+  trip_name: string;
   destination: string;
-  startDate: string;
+  start_date: string;
 }
 
 const useTrips = () => {
@@ -16,6 +16,7 @@ const useTrips = () => {
     if (res.status !== 200) {
       return;
     }
+    console.log(res.data);
     setTrips(res.data);
   };
 
