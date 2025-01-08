@@ -23,9 +23,10 @@ const style = {
 interface FormProps {
   open: boolean;
   handleClose: () => void;
+  loadTrips: () => void;
 }
 
-const NewTripModal: FC<FormProps> = ({ open, handleClose }) => {
+const NewTripModal: FC<FormProps> = ({ open, handleClose, loadTrips }) => {
   const { openAlert, error, handleOpenAlert, handleCloseAlert } = useAlert();
   const [tripName, setTripName] = useState('');
   const [destination, setDestination] = useState('');
@@ -54,6 +55,7 @@ const NewTripModal: FC<FormProps> = ({ open, handleClose }) => {
       return;
     }
 
+    loadTrips();
     reset();
   };
 

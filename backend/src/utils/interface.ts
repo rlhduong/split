@@ -12,6 +12,7 @@ export interface Friends {
 export interface DbTrip {
   id: number;
   user_id: number;
+  trip_name: string;
   destination: string;
   start_date: string;
   friends: string;

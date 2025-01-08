@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { request } from '../../utilities/helper';
 import useOpenForm from '../../hooks/useOpenForm';
+import useTrips from '../../hooks/useTrips';
 
 const s1 = {
   minHeight: '100vh',
@@ -26,36 +27,30 @@ const s2 = {
 const Dashboard = () => {
   const status = useSelector((state: any) => state.status);
   const { openForm, handleOpenForm, handleCloseForm } = useOpenForm();
-  const [trips, setTrips] = useState([]);
+  const { trips, loadTrips } = useTrips();
 
   useEffect(() => {
-    const getTrips = async () => {
-      const res = await request.get('/trips');
-      if (res.status !== 200) {
-        return;
-      }
-      setTrips(res.data);
-    };
-  
     const aaa = () => {
       if (!status.loggedIn) {
         return <Navigate to="/" />;
       } else {
-        getTrips();
+        loadTrips();
       }
     };
 
     aaa();
   }, [status]);
 
-
-
   return (
     <Box sx={s1}>
       <Header handleOpen={() => {}} />
       <Box sx={s2}>
         <CreateTripBtn handleOpenForm={handleOpenForm} />
-        <NewTripModal open={openForm} handleClose={handleCloseForm} />
+        <NewTripModal
+          open={openForm}
+          handleClose={handleCloseForm}
+          loadTrips={loadTrips}
+        />
       </Box>
     </Box>
   );
