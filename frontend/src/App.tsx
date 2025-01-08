@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import LandingPage from './pages/Home/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Trip from './pages/Trip/Trip';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/trip/:tripId" element={<Trip />} />
       </Routes>
     </BrowserRouter>
   );

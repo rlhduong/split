@@ -24,7 +24,13 @@ const s1 = {
 };
 
 const s2 = {
-  fontSize: { xs: '0.9rem', sm: '1rem', md: '2rem', lg: '2.5rem', xl: '2.5rem' },
+  fontSize: {
+    xs: '0.9rem',
+    sm: '1rem',
+    md: '2rem',
+    lg: '2.5rem',
+    xl: '2.5rem',
+  },
   padding: '20px 40px 20px 40px',
   color: 'white',
   borderRadius: '15px',
@@ -38,7 +44,7 @@ const CreateTripBtn: FC<CreateProps> = ({ handleOpenForm }) => {
       onClick={() => handleOpenForm()}
     >
       <Typography sx={s2} variant="h1">
-        New Presentation
+        New Trip
       </Typography>
       <AddCircleOutlineIcon
         sx={{

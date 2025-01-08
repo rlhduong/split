@@ -4,6 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Trip as T } from '../../hooks/useTrips';
 
 const s1 = {
   width: { xs: '100%', sm: '45%', lg: '30%' },
@@ -23,14 +25,13 @@ const s1 = {
 };
 
 interface TripProps {
-  tripName: string;
-  destination: string;
-  startDate: string;
+  trip: T;
 }
 
-const Trip: FC<TripProps> = ({ tripName, destination, startDate }) => {
+const Trip: FC<TripProps> = ({ trip }) => {
+  const navigate = useNavigate();
   return (
-    <Card sx={s1}>
+    <Card sx={s1} onClick={() => navigate(`/trip/${trip.id}`)}>
       <CardMedia
         component="img"
         sx={{ width: '30%', aspectRatio: '1/1', padding: '5%' }}
@@ -38,19 +39,19 @@ const Trip: FC<TripProps> = ({ tripName, destination, startDate }) => {
         alt="s"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
+        <CardContent sx={{ flex: '1 0 auto', paddingLeft: 0 }}>
           <Typography component="div" variant="h6">
-            {tripName}
+            {trip.trip_name}
           </Typography>
           <Typography
             variant="subtitle1"
             component="div"
             sx={{ color: '#7C8288' }}
           >
-            {destination}
+            {trip.destination}
           </Typography>
           <Typography variant="subtitle2" component="div">
-            {startDate}
+            {trip.start_date}
           </Typography>
         </CardContent>
       </Box>

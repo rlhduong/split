@@ -16,7 +16,6 @@ const useTrips = () => {
     if (res.status !== 200) {
       return;
     }
-    console.log(res.data);
     setTrips(res.data);
   };
 

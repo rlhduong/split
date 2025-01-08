@@ -29,9 +29,7 @@ const TripList: FC<TripListProps> = ({ trips }) => {
       {trips.map((trip: T) => (
         <Trip
           key={`tripId=${trip.id}`}
-          tripName={trip.trip_name}
-          destination={trip.destination}
-          startDate={trip.start_date}
+          trip={trip}
         />
       ))}
     </Container>
