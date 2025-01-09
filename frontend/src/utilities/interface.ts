@@ -16,10 +16,11 @@ export interface TripInfo {
 
 export interface TripInfoProps {
   trip: TripInfo;
+  reload: () => void;
 }
 
 export interface Friend {
-  total: number;
+  spent: number;
   net: number;
 }
 

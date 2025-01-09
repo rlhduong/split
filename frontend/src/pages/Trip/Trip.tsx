@@ -55,25 +55,18 @@ const Trip = () => {
   });
 
   useEffect(() => {
-    const a = async () => {
-      const res = await request.get(`/trips/${tripId}`);
-
-      if (res.status !== 200) {
-        navigate('/dashboard', { replace: true });
-        return;
-      }
-
-      setTrip(res.data);
-    };
-
-    a();
+    reload();
   }, []);
 
-
-  const reload = async() => {
+  const reload = async () => {
     const res = await request.get(`/trips/${tripId}`);
+    if (res.status !== 200) {
+      navigate('/dashboard', { replace: true });
+      return;
+    }
+    console.log(res.data);
     setTrip(res.data);
-  }
+  };
 
   return (
     <Box sx={styles.main}>
@@ -95,8 +88,8 @@ const Trip = () => {
         </Button>
       </Box>
       <Box sx={styles.bot}>
-        <SideBar trip={trip} />
-        <Main trip={trip} />
+        <SideBar trip={trip} reload={reload} />
+        <Main trip={trip} reload={reload} />
       </Box>
     </Box>
   );

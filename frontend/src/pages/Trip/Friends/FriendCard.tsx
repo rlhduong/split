@@ -30,7 +30,7 @@ const FriendCard: FC<FriendCardProps> = ({ friend, name }) => {
           }}
         >
           <Typography>{name}</Typography>
-          {hover && <Typography color="#2e96ff">{friend.total}</Typography>}
+          {hover && <Typography color="#2e96ff">{friend.spent}</Typography>}
         </CardContent>
       </CardActionArea>
     </Card>

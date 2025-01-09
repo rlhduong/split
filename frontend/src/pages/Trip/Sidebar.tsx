@@ -41,12 +41,12 @@ const style = {
   },
 };
 
-const SideBar: FC<TripInfoProps> = ({ trip }) => {
+const SideBar: FC<TripInfoProps> = ({ trip , reload}) => {
   return (
     <Box sx={style.main}>
       <Spent total={trip.total} />
       <FriendList friends={trip.friends} />
-      <AddFriendField reload={() => {}} />
+      <AddFriendField reload={reload} tripId={trip.id} />
     </Box>
   );
 };
