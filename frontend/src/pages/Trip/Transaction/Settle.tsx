@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { request } from '../../utilities/helper';
-import { TripMain } from '../../const/style';
+import { request } from '../../../utilities/helper';
+import { TripMain } from '../../../const/style';
 
 interface SettleProps {
   tripId: number;

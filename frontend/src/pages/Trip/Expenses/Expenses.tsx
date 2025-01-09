@@ -3,6 +3,7 @@ import { FC, useState, useEffect } from 'react';
 import { TripMain } from '../../../const/style';
 import { TripInfoProps } from '../../../utilities/interface';
 import { request } from '../../../utilities/helper';
+import NewExpenseBtn from './NewExpenseBtn';
 
 interface Expense {
   id: number;
@@ -29,9 +30,14 @@ const Expense: FC<TripInfoProps> = ({ trip }) => {
 
   return (
     <Box sx={{ ...TripMain, flexGrow: 1, borderBottom: { sm: 'none' } }}>
-      <Typography variant="h5">Expenses</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h5">Expenses</Typography>
+        <NewExpenseBtn />
+      </Box>
       {expenses.length === 0 && (
-        <Typography textAlign="center" mt="1.8rem">No expenses</Typography>
+        <Typography textAlign="center" mt="1.8rem">
+          No expenses
+        </Typography>
       )}
     </Box>
   );
