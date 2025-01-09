@@ -4,7 +4,7 @@ import { TripInfoProps } from '../../utilities/interface';
 import useOpenForm from '../../hooks/useOpenForm';
 import Settle from './Transaction/Settle';
 import Expense from './Expenses/Expenses';
-import NewExpenseForm from './Expenses/NewExpenseForm';
+import NewExpenseForm from './Expenses/Form/NewExpenseForm';
 import SnackbarError from '../../components/SnackBarError';
 import useAlert from '../../hooks/useAlert';
 
