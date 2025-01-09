@@ -1,8 +1,9 @@
-import { Box, Button, TextField, Snackbar, Alert } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { FC, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import useAlert from '../../../hooks/useAlert';
 import { request } from '../../../utilities/helper';
+import SnackbarError from '../../../components/SnackBarError';
 
 interface AddFriendFieldProps {
   reload: () => void;
@@ -52,20 +53,11 @@ const AddFriendField: FC<AddFriendFieldProps> = ({ reload, tripId }) => {
           <AddIcon />
         </Button>
       </Box>
-      <Snackbar
-        open={openAlert}
-        onClose={handleCloseAlert}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={3000}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity="error"
-          sx={{ width: '100%' }}
-        >
-          {error}
-        </Alert>
-      </Snackbar>
+      <SnackbarError
+        openAlert={openAlert}
+        error={error}
+        handleCloseAlert={handleCloseAlert}
+      />
     </Box>
   );
 };

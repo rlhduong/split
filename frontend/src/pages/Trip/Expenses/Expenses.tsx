@@ -14,7 +14,11 @@ interface Expense {
   participants: Array<string>;
 }
 
-const Expense: FC<TripInfoProps> = ({ trip }) => {
+interface ExpenseProps extends TripInfoProps {
+  handleOpen: () => void;
+}
+
+const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
   const [expenses, setExpenses] = useState<Array<Expense>>([]);
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const Expense: FC<TripInfoProps> = ({ trip }) => {
     <Box sx={{ ...TripMain, flexGrow: 1, borderBottom: { sm: 'none' } }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">Expenses</Typography>
-        <NewExpenseBtn />
+        <NewExpenseBtn handleOpen={handleOpen} />
       </Box>
       {expenses.length === 0 && (
         <Typography textAlign="center" mt="1.8rem">
