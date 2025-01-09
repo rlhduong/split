@@ -5,12 +5,14 @@ import { useState } from 'react';
 import ExpenseFormTop from './ExpenseFormTop';
 import ExpenseFormMid from './ExpenseFormMid';
 import ExpenseFormBtm from './ExpenseFormBtm';
+import FormBtn from '../../../../components/FormBtn';
 
 interface NewExpenseFormProps {
   tripId: number;
   handleClose: () => void;
   open: boolean;
   friends: Array<string>;
+  handleOpenAlert: (message: string) => void;
 }
 
 const NewExpenseForm: FC<NewExpenseFormProps> = ({
@@ -18,11 +20,24 @@ const NewExpenseForm: FC<NewExpenseFormProps> = ({
   tripId,
   handleClose,
   open,
+  handleOpenAlert,
 }) => {
   const [payer, setPayer] = useState('');
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState('');
   const [participants, setParticipants] = useState<Array<string>>([]);
+
+  const handleSubmit = async () => {
+    if (
+      payer === '' ||
+      amount === 0 ||
+      description === '' ||
+      participants.length === 0
+    ) {
+      handleOpenAlert('Please fill in all fields');
+      return;
+    }
+  };
 
   return (
     <Modal
@@ -58,6 +73,7 @@ const NewExpenseForm: FC<NewExpenseFormProps> = ({
             setDescription={setDescription}
           />
           <ExpenseFormBtm friends={friends} setParticipants={setParticipants} />
+          <FormBtn text="Create" onClick={handleSubmit} />
         </Box>
       </Fade>
     </Modal>

@@ -4,6 +4,7 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Box,
 } from '@mui/material';
 
 import { useState } from 'react';
@@ -19,39 +20,41 @@ const ExpenseFormBtm = ({ friends, setParticipants }: ExpenseFormBtmProps) => {
   );
 
   return (
-    <FormControl sx={{ mt: '2rem' }} component="fieldset" variant="standard">
-      <FormLabel component="legend">Participant</FormLabel>
-      <FormGroup>
-        {friends.map((friend, index) => {
-          const handleChange = (i: number) => {
-            const newChecked = [...checked];
-            newChecked[i] = !newChecked[i];
-            setChecked(newChecked);
+    <Box>
+      <FormControl sx={{ mt: '2rem' }} component="fieldset" variant="standard">
+        <FormLabel component="legend">Participant</FormLabel>
+        <FormGroup>
+          {friends.map((friend, index) => {
+            const handleChange = (i: number) => {
+              const newChecked = [...checked];
+              newChecked[i] = !newChecked[i];
+              setChecked(newChecked);
 
-            const newParticipants: string[] = [];
-            newChecked.forEach((value, index) => {
-              if (value) {
-                newParticipants.push(friends[index]);
-              }
-            });
-            setParticipants(newParticipants);
-          };
+              const newParticipants: string[] = [];
+              newChecked.forEach((value, index) => {
+                if (value) {
+                  newParticipants.push(friends[index]);
+                }
+              });
+              setParticipants(newParticipants);
+            };
 
-          return (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checked[index]}
-                  onChange={() => handleChange(index)}
-                  name={friend}
-                />
-              }
-              label={friend}
-            />
-          );
-        })}
-      </FormGroup>
-    </FormControl>
+            return (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checked[index]}
+                    onChange={() => handleChange(index)}
+                    name={friend}
+                  />
+                }
+                label={friend}
+              />
+            );
+          })}
+        </FormGroup>
+      </FormControl>
+    </Box>
   );
 };
 

@@ -41,6 +41,7 @@ const Main: FC<TripInfoProps> = ({ trip, reload }) => {
         handleClose={handleCloseForm}
         open={openForm}
         friends={Object.keys(trip.friends)}
+        handleOpenAlert={handleOpenAlert}
       />
       <SnackbarError
         openAlert={openAlert}

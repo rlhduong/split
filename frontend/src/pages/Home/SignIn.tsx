@@ -4,6 +4,7 @@ import { request } from '../../utilities/helper';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../../store/loggedin';
+import FormBtn from '../../components/FormBtn';
 
 interface SignProps {
   handleOpenAlert: (message: string) => void;
@@ -64,15 +65,7 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
         name="login-password"
         color="primary"
       />
-      <Button
-        color="primary"
-        variant="contained"
-        size="medium"
-        sx={{ marginTop: '2rem', textTransform: 'none' }}
-        onClick={() => login()}
-      >
-        Sign in
-      </Button>
+      <FormBtn text='Sign In' onClick={() => login()}/>
     </Box>
   );
 };
