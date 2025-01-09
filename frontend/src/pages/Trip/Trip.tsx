@@ -69,6 +69,12 @@ const Trip = () => {
     a();
   }, []);
 
+
+  const reload = async() => {
+    const res = await request.get(`/trips/${tripId}`);
+    setTrip(res.data);
+  }
+
   return (
     <Box sx={styles.main}>
       <Box sx={styles.top}>

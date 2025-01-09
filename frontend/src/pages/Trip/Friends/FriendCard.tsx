@@ -24,13 +24,13 @@ const FriendCard: FC<FriendCardProps> = ({ friend, name }) => {
           sx={{
             display: 'flex',
             flexDirection: 'row',
-						padding: "3% 5% 3% 5%",
+            padding: '3% 5% 3% 5%',
             border: 'none',
             justifyContent: 'space-between',
           }}
         >
           <Typography>{name}</Typography>
-          {hover && <Typography>{friend.total}</Typography>}
+          {hover && <Typography color="#2e96ff">{friend.total}</Typography>}
         </CardContent>
       </CardActionArea>
     </Card>

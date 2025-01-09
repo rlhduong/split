@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useAlert = () => {
   const [openAlert, setOpenAlert] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const handleOpenAlert = (message: string) => {
     setError(message);
@@ -10,7 +10,6 @@ const useAlert = () => {
   };
 
   const handleCloseAlert = () => {
-    setError("");
     setOpenAlert(false);
   };
 

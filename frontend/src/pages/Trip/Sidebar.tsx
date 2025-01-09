@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 import { TripInfoProps } from '../../utilities/interface';
 import FriendList from './Friends/FriendList';
+import AddFriendField from './Friends/AddFriendField';
 
 const style = {
   main: {
@@ -16,6 +17,7 @@ const style = {
     borderSizing: 'border-box',
     mb: {
       xs: '2rem',
+      sm: '0',
     },
   },
   stat: {
@@ -27,7 +29,7 @@ const style = {
     mb: {
       xs: '0rem',
       sm: '1rem',
-      md: '2rem',
+      md: '1.5rem',
     },
     borderSizing: 'border-box',
   },
@@ -39,22 +41,12 @@ const style = {
   },
 };
 
-const data = {
-  roger: {
-    total: 200,
-    net: 0,
-  },
-  rachel: {
-    total: 100,
-    net: 0,
-  },
-};
-
 const SideBar: FC<TripInfoProps> = ({ trip }) => {
   return (
     <Box sx={style.main}>
       <Spent total={trip.total} />
-      <FriendList friends={data} />
+      <FriendList friends={trip.friends} />
+      <AddFriendField reload={() => {}} />
     </Box>
   );
 };
