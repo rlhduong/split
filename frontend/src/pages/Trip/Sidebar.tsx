@@ -12,7 +12,7 @@ const style = {
       md: '28%',
     },
     borderRadius: '10px',
-    border: '1px solid #19252E',
+    border: '2px solid #0c4c92',
     padding: '1%',
     borderSizing: 'border-box',
     mb: {
@@ -31,7 +31,7 @@ const style = {
       sm: '1rem',
       md: '1.5rem',
     },
-    borderSizing: 'border-box',
+    boxSizing: 'border-box',
   },
   hover: {
     transition: 'background-color 0.3s ease, transform 0.4s ease',
@@ -41,7 +41,7 @@ const style = {
   },
 };
 
-const SideBar: FC<TripInfoProps> = ({ trip , reload}) => {
+const SideBar: FC<TripInfoProps> = ({ trip, reload }) => {
   return (
     <Box sx={style.main}>
       <Spent total={trip.total} />

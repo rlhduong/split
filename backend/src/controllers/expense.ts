@@ -107,19 +107,20 @@ export const settle = async (req: Request, res: Response) => {
     arr.push({ name: f, net: data.net });
   }
   arr.sort((a, b) => a.net - b.net);
+  const b = arr.filter((a) => !isZero(a.net));
 
-  while (arr.length >= 2) {
+  while (b.length >= 2) {
     const d: { name: string; net: number } | undefined = arr.shift();
     const c: { name: string; net: number } | undefined = arr.pop();
 
     const rem: number = (d?.net || 0) + (c?.net || 0);
     if (!isZero(rem)) {
       if (rem > 0) {
-        arr.push({ net: rem, name: c?.name || '' });
+        b.push({ net: rem, name: c?.name || '' });
       } else {
-        arr.push({ net: rem, name: d?.name || '' });
+        b.push({ net: rem, name: d?.name || '' });
       }
-      arr.sort((a, b) => a.net - b.net);
+      b.sort((a, b) => a.net - b.net);
     }
 
     const q: Array<string> = [];
