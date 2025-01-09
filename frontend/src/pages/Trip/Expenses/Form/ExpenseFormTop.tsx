@@ -52,7 +52,7 @@ const ExpenseFormTop = ({
         type="number"
         label="Amount"
         value={amount}
-        onChange={(e) => setAmount(e.target.value as unknown as number)}
+        onChange={(e) => setAmount(parseInt(e.target.value))}
       />
     </Box>
   );

@@ -1,11 +1,10 @@
-import { TextField, Box, Button } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 import { FC, useState } from 'react';
 import { request } from '../../utilities/helper';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../../store/loggedin';
 import FormBtn from '../../components/FormBtn';
-
 
 interface SignProps {
   handleOpenAlert: (message: string) => void;
@@ -94,7 +93,7 @@ const SignUp: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
         onKeyDown={handleKeyDown}
         name="login-password"
       />
-      <FormBtn text='Sign Up' onClick={() => register}/>
+      <FormBtn text="Sign Up" onClick={() => register} />
     </Box>
   );
 };

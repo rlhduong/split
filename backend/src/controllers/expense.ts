@@ -53,8 +53,6 @@ export const addExpense = async (
     }
   }
 
-  console.log(JSON.stringify(participants));
-
   updateTotal(parseInt(tripId), trip.total + amount);
   updateFriends(parseInt(tripId), JSON.stringify(friends));
   insertExpense(
@@ -108,13 +106,12 @@ export const settle = async (req: Request, res: Response) => {
   }
   arr.sort((a, b) => a.net - b.net);
   const b = arr.filter((a) => !isZero(a.net));
-
   while (b.length >= 2) {
-    const d: { name: string; net: number } | undefined = arr.shift();
-    const c: { name: string; net: number } | undefined = arr.pop();
+    const d: { name: string; net: number } | undefined = b.shift();
+    const c: { name: string; net: number } | undefined = b.pop();
 
     const rem: number = (d?.net || 0) + (c?.net || 0);
-    if (!isZero(rem)) {
+    if (!isZero(rem) && rem !== 0) {
       if (rem > 0) {
         b.push({ net: rem, name: c?.name || '' });
       } else {

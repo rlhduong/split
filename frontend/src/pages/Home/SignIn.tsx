@@ -1,4 +1,4 @@
-import { TextField, Box, Button } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 import { FC, useState } from 'react';
 import { request } from '../../utilities/helper';
 import { useNavigate } from 'react-router-dom';
@@ -65,7 +65,7 @@ const SignIn: FC<SignProps> = ({ handleOpenAlert, handleClose }) => {
         name="login-password"
         color="primary"
       />
-      <FormBtn text='Sign In' onClick={() => login()}/>
+      <FormBtn text="Sign In" onClick={() => login()} />
     </Box>
   );
 };

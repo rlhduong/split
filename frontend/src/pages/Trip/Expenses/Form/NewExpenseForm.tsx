@@ -6,19 +6,20 @@ import ExpenseFormTop from './ExpenseFormTop';
 import ExpenseFormMid from './ExpenseFormMid';
 import ExpenseFormBtm from './ExpenseFormBtm';
 import FormBtn from '../../../../components/FormBtn';
+import { request } from '../../../../utilities/helper';
 
 interface NewExpenseFormProps {
   tripId: number;
-  handleClose: () => void;
   open: boolean;
   friends: Array<string>;
+  handleCloseForm: () => void;
   handleOpenAlert: (message: string) => void;
 }
 
 const NewExpenseForm: FC<NewExpenseFormProps> = ({
   friends,
   tripId,
-  handleClose,
+  handleCloseForm,
   open,
   handleOpenAlert,
 }) => {
@@ -28,21 +29,34 @@ const NewExpenseForm: FC<NewExpenseFormProps> = ({
   const [participants, setParticipants] = useState<Array<string>>([]);
 
   const handleSubmit = async () => {
-    if (
-      payer === '' ||
-      amount === 0 ||
-      description === '' ||
-      participants.length === 0
-    ) {
+    if (payer === '' || description === '' || participants.length === 0) {
       handleOpenAlert('Please fill in all fields');
       return;
     }
+
+    if (amount <= 0) {
+      handleOpenAlert('Amount must be greater than 0');
+      return;
+    }
+
+    const data = {
+      payer,
+      amount,
+      description,
+      participants,
+      size: participants.length,
+    };
+
+    const res = await request.post(`/trips/${tripId}/expenses`, data);
+    console.log(res);
+
+    handleCloseForm();
   };
 
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={handleCloseForm}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{

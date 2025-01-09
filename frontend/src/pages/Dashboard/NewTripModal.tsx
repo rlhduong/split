@@ -1,10 +1,11 @@
-import { Box, Modal, Fade, Backdrop, Typography, Button } from '@mui/material';
+import { Box, Modal, Fade, Backdrop, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 import ErrorAlert from '../../components/ErrorAlert';
 import useAlert from '../../hooks/useAlert';
 import Form from './Form';
 import { request } from '../../utilities/helper';
 import { formStyle } from '../../const/style';
+import FormBtn from '../../components/FormBtn';
 
 interface FormProps {
   open: boolean;
@@ -60,7 +61,14 @@ const NewTripModal: FC<FormProps> = ({ open, handleClose, loadTrips }) => {
       }}
     >
       <Fade in={open}>
-        <Box sx={{...formStyle, display: 'flex', flexDirection: 'column', width: { xs: '90%', sm: '50%', lg: '40%' } }}>
+        <Box
+          sx={{
+            ...formStyle,
+            display: 'flex',
+            flexDirection: 'column',
+            width: { xs: '90%', sm: '50%', lg: '40%' },
+          }}
+        >
           <Typography
             variant="h2"
             component="h2"
@@ -82,14 +90,7 @@ const NewTripModal: FC<FormProps> = ({ open, handleClose, loadTrips }) => {
               marginTop: '2rem',
             }}
           >
-            <Button
-              size="medium"
-              variant="contained"
-              sx={{ width: '30%', textTransform: 'none' }}
-              onClick={handleCreate}
-            >
-              Create
-            </Button>
+            <FormBtn text="Create" onClick={handleCreate} />
           </div>
           <ErrorAlert
             open={openAlert}

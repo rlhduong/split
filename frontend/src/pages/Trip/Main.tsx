@@ -38,10 +38,10 @@ const Main: FC<TripInfoProps> = ({ trip, reload }) => {
       <Expense trip={trip} reload={reload} handleOpen={handleOpen} />
       <NewExpenseForm
         tripId={trip.id}
-        handleClose={handleCloseForm}
         open={openForm}
         friends={Object.keys(trip.friends)}
         handleOpenAlert={handleOpenAlert}
+        handleCloseForm={handleCloseForm}
       />
       <SnackbarError
         openAlert={openAlert}
