@@ -11,7 +11,12 @@ import Main from './Main';
 const styles = {
   main: {
     ...pageStyle,
-    padding: '5% 20% 0  20%',
+    padding: {
+      xs: '10% 13%',
+      sm: '5% 10% 0 10%',
+      md: '5% 16% 0 16%',
+      lg: '5% 20% 0 20%',
+    },
     boxSizing: 'border-box',
     color: '#E4EEF6',
   },
@@ -21,8 +26,14 @@ const styles = {
   },
   bot: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: {
+      xs: 'column',
+      sm: 'row',
+    },
+    justifyContent: {
+      xs: 'flex-start',
+      sm: 'space-between',
+    },
     flexGrow: 1,
     height: '100%',
   },
@@ -39,7 +50,7 @@ const Trip = () => {
     trip_name: '',
     destination: '',
     start_date: '',
-    friends: '',
+    friends: {},
     total: 0,
   });
 
