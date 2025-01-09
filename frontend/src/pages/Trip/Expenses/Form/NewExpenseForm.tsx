@@ -6,8 +6,6 @@ import ExpenseFormTop from './ExpenseFormTop';
 import ExpenseFormMid from './ExpenseFormMid';
 import ExpenseFormBtm from './ExpenseFormBtm';
 
-const pp = ['roger', 'john', 'paul', 'george'];
-
 interface NewExpenseFormProps {
   tripId: number;
   handleClose: () => void;
@@ -59,6 +57,7 @@ const NewExpenseForm: FC<NewExpenseFormProps> = ({
             description={description}
             setDescription={setDescription}
           />
+          <ExpenseFormBtm friends={friends} setParticipants={setParticipants} />
         </Box>
       </Fade>
     </Modal>
