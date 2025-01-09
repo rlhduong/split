@@ -30,7 +30,6 @@ const Trip = () => {
       navigate('/dashboard', { replace: true });
       return;
     }
-    console.log(res.data);
     setTrip(res.data);
   };
 

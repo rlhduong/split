@@ -19,6 +19,7 @@ const style = {
       xs: '2rem',
       sm: '0',
     },
+    borderBottom: {sm: 'none'}
   },
   stat: {
     display: 'flex',

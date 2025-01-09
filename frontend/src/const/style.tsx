@@ -49,3 +49,11 @@ export const TripOverView = {
     ml: 'auto',
   },
 };
+
+export const TripMain = {
+  width: '100%',
+  borderRadius: '10px',
+  border: '2px solid #0c4c92',
+  padding: '2% 3%',
+  boxSizing: 'border-box',
+};
