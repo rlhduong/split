@@ -26,6 +26,7 @@ const AddFriendField: FC<AddFriendFieldProps> = ({ reload, tripId }) => {
       handleOpenAlert(res.data.error);
     }
 
+    setName('');
     reload();
   };
 
@@ -39,6 +40,7 @@ const AddFriendField: FC<AddFriendFieldProps> = ({ reload, tripId }) => {
         }}
       >
         <TextField
+          value={name}
           color="secondary"
           focused
           onChange={(e) => setName(e.target.value)}

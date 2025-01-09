@@ -15,3 +15,37 @@ export const formStyle = {
   borderRadius: '1rem',
   boxShadow: 24,
 };
+
+export const TripOverView = {
+  main: {
+    ...pageStyle,
+    padding: {
+      xs: '10% 13%',
+      sm: '5% 10% 0 10%',
+      md: '5% 16% 0 16%',
+      lg: '5% 20% 0 20%',
+    },
+    boxSizing: 'border-box',
+    color: '#E4EEF6',
+  },
+  top: {
+    display: 'flex',
+    alignItems: 'baseline',
+  },
+  bot: {
+    display: 'flex',
+    flexDirection: {
+      xs: 'column',
+      sm: 'row',
+    },
+    justifyContent: {
+      xs: 'flex-start',
+      sm: 'space-between',
+    },
+    flexGrow: 1,
+    height: '100%',
+  },
+  btn: {
+    ml: 'auto',
+  },
+};
