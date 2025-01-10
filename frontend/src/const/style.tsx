@@ -64,4 +64,5 @@ export const cardStyle = {
   color: 'white',
   boxShadow: 'none',
   border: 'none',
+  boxSizing: 'border-box',
 };

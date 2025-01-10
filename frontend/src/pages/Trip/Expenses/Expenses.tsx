@@ -43,7 +43,7 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
         borderBottomRightRadius: { sm: '0' },
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '2rem' }}>
         <Typography variant="h5">Expenses</Typography>
         <NewExpenseBtn handleOpen={handleOpen} />
       </Box>
