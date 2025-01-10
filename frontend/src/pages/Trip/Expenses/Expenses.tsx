@@ -26,6 +26,7 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
       if (trip.id === 0) return;
 
       const res = await request.get(`/trips/${trip.id}/expenses`);
+      console.log(res.data);
       setExpenses(res.data);
     };
 

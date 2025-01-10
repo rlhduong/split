@@ -53,7 +53,15 @@ export const TripOverView = {
 export const TripMain = {
   width: '100%',
   borderRadius: '10px',
-  border: '2px solid #0c4c92',
+  border: '2px solid rgb(24, 53, 83)',
   padding: '2% 3%',
   boxSizing: 'border-box',
+};
+
+export const cardStyle = {
+  width: '100%',
+  backgroundColor: 'transparent',
+  color: 'white',
+  boxShadow: 'none',
+  border: 'none',
 };

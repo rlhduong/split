@@ -12,14 +12,14 @@ const style = {
       md: '28%',
     },
     borderRadius: '10px',
-    border: '2px solid #0c4c92',
+    border: '2px solid rgb(24, 53, 83)',
     padding: '1%',
     borderSizing: 'border-box',
     mb: {
       xs: '2rem',
       sm: '0',
     },
-    borderBottom: {sm: 'none'}
+    borderBottom: { sm: 'none' },
   },
   stat: {
     display: 'flex',
@@ -45,7 +45,7 @@ const style = {
 const SideBar: FC<TripInfoProps> = ({ trip, reload }) => {
   return (
     <Box sx={style.main}>
-      <Spent total={trip.total} />
+      <Spent total={trip.total.toFixed(2)} />
       <FriendList friends={trip.friends} />
       <AddFriendField reload={reload} tripId={trip.id} />
     </Box>
@@ -53,7 +53,7 @@ const SideBar: FC<TripInfoProps> = ({ trip, reload }) => {
 };
 
 interface SpentProps {
-  total: number;
+  total: string;
 }
 
 const Spent: FC<SpentProps> = ({ total }) => {

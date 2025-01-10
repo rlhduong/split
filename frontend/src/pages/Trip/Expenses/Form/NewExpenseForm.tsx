@@ -14,6 +14,7 @@ interface NewExpenseFormProps {
   friends: Array<string>;
   handleCloseForm: () => void;
   handleOpenAlert: (message: string) => void;
+  reload: () => void;
 }
 
 const NewExpenseForm: FC<NewExpenseFormProps> = ({
@@ -22,6 +23,7 @@ const NewExpenseForm: FC<NewExpenseFormProps> = ({
   handleCloseForm,
   open,
   handleOpenAlert,
+  reload,
 }) => {
   const [payer, setPayer] = useState('');
   const [amount, setAmount] = useState(0);
@@ -48,8 +50,11 @@ const NewExpenseForm: FC<NewExpenseFormProps> = ({
     };
 
     const res = await request.post(`/trips/${tripId}/expenses`, data);
-    console.log(res);
-
+    if (res.status !== 200) {
+      handleOpenAlert('Failed to create expense');
+      return;
+    }
+    reload();
     handleCloseForm();
   };
 

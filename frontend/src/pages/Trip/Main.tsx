@@ -34,7 +34,7 @@ const Main: FC<TripInfoProps> = ({ trip, reload }) => {
 
   return (
     <Box sx={style.main}>
-      <Settle tripId={trip.id} />
+      <Settle trip={trip} />
       <Expense trip={trip} reload={reload} handleOpen={handleOpen} />
       <NewExpenseForm
         tripId={trip.id}
@@ -42,6 +42,7 @@ const Main: FC<TripInfoProps> = ({ trip, reload }) => {
         friends={Object.keys(trip.friends)}
         handleOpenAlert={handleOpenAlert}
         handleCloseForm={handleCloseForm}
+        reload={reload}
       />
       <SnackbarError
         openAlert={openAlert}
