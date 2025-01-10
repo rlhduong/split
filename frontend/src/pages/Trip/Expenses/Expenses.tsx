@@ -38,7 +38,7 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
       sx={{
         ...TripMain,
         flexGrow: { sm: 1 },
-        minHeight: { xs: '400px' },
+        height: {xs: '370px'},
         borderBottom: { sm: 'none' },
         borderBottomLeftRadius: { sm: '0' },
         borderBottomRightRadius: { sm: '0' },

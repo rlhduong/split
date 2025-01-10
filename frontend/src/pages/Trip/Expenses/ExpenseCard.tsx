@@ -38,7 +38,7 @@ const ExpenseCard = ({ expense }: TransactionCardProps) => {
         >
           {hover ? (
             <div
-              style={{ display: 'flex', flexDirection: 'row', width: '100%' }}
+              style={{ display: 'flex', flexDirection: 'row', width: '80%', overflow: 'hidden' }}
             >
               {expense.participants.map((name) => (
                 <Chip

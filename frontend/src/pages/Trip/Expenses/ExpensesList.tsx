@@ -40,6 +40,7 @@ const ExpensesList = ({ expenses }: ExpensesListProps) => {
           <ExpenseCard key={`expense-${expense.id}`} expense={expense} />
         ))}
       </Box>
+      <Box sx={{flexGrow: 1}}></Box>
       <Pagination
         sx={{
           '& .MuiPaginationItem-root': {
