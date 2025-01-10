@@ -21,9 +21,9 @@ export const TripOverView = {
     ...pageStyle,
     padding: {
       xs: '10% 13%',
-      sm: '5% 10% 0 10%',
-      md: '5% 16% 0 16%',
-      lg: '5% 20% 0 20%',
+      sm: '3% 10% 0 10%',
+      md: '3% 16% 0 16%',
+      lg: '3% 20% 0 20%',
     },
     boxSizing: 'border-box',
     color: '#E4EEF6',

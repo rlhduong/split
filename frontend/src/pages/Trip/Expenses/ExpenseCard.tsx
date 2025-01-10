@@ -5,7 +5,6 @@ import {
   CardContent,
   CardActionArea,
   Chip,
-  Button,
 } from '@mui/material';
 import { cardStyle } from '../../../const/style';
 import { Expense } from './Expenses';
@@ -49,9 +48,6 @@ const ExpenseCard = ({ expense }: TransactionCardProps) => {
                   sx={{ marginRight: '0.5rem' }}
                 />
               ))}
-              <Button color="error" sx={{ ml: 'auto', textTransform: 'none' }}>
-                Delete
-              </Button>
             </div>
           ) : (
             <>
