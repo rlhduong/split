@@ -5,9 +5,10 @@ import { useState, useEffect } from 'react';
 
 interface ExpensesListProps {
   expenses: Expense[];
+  reload: () => void;
 }
 
-const ExpensesList = ({ expenses }: ExpensesListProps) => {
+const ExpensesList = ({ expenses, reload }: ExpensesListProps) => {
   const [page, setPage] = useState(1);
   const [curr, setCurr] = useState<Expense[]>([]);
 
@@ -37,10 +38,14 @@ const ExpensesList = ({ expenses }: ExpensesListProps) => {
     >
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
         {curr.map((expense) => (
-          <ExpenseCard key={`expense-${expense.id}`} expense={expense} />
+          <ExpenseCard
+            key={`expense-${expense.id}`}
+            expense={expense}
+            reload={reload}
+          />
         ))}
       </Box>
-      <Box sx={{flexGrow: 1}}></Box>
+      <Box sx={{ flexGrow: 1 }}></Box>
       <Pagination
         sx={{
           '& .MuiPaginationItem-root': {

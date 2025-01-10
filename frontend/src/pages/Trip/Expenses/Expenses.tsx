@@ -19,7 +19,7 @@ interface ExpenseProps extends TripInfoProps {
   handleOpen: () => void;
 }
 
-const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
+const Expenses: FC<ExpenseProps> = ({ trip, handleOpen, reload }) => {
   const [expenses, setExpenses] = useState<Array<Expense>>([]);
 
   useEffect(() => {
@@ -55,9 +55,9 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
           No expenses
         </Typography>
       )}
-      <ExpensesList expenses={expenses} />
+      <ExpensesList expenses={expenses} reload={reload} />
     </Box>
   );
 };
 
-export default Expense;
+export default Expenses;
