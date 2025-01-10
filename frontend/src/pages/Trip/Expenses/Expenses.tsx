@@ -4,8 +4,9 @@ import { TripMain } from '../../../const/style';
 import { TripInfoProps } from '../../../utilities/interface';
 import { request } from '../../../utilities/helper';
 import NewExpenseBtn from './NewExpenseBtn';
+import ExpenseCard from './ExpenseCard';
 
-interface Expense {
+export interface Expense {
   id: number;
   trip_id: number;
   amount: number;
@@ -26,7 +27,6 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
       if (trip.id === 0) return;
 
       const res = await request.get(`/trips/${trip.id}/expenses`);
-      console.log(res.data);
       setExpenses(res.data);
     };
 
@@ -34,7 +34,15 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
   }, [trip]);
 
   return (
-    <Box sx={{ ...TripMain, flexGrow: 1, borderBottom: { sm: 'none' } }}>
+    <Box
+      sx={{
+        ...TripMain,
+        flexGrow: 1,
+        borderBottom: { sm: 'none' },
+        borderBottomLeftRadius: { sm: '0' },
+        borderBottomRightRadius: { sm: '0' },
+      }}
+    >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">Expenses</Typography>
         <NewExpenseBtn handleOpen={handleOpen} />
@@ -44,6 +52,9 @@ const Expense: FC<ExpenseProps> = ({ trip, handleOpen }) => {
           No expenses
         </Typography>
       )}
+      {expenses.map((expense) => (
+        <ExpenseCard key={`expense-${expense.id}`} expense={expense} />
+      ))}
     </Box>
   );
 };

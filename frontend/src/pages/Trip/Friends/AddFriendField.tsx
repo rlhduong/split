@@ -32,7 +32,7 @@ const AddFriendField: FC<AddFriendFieldProps> = ({ reload, tripId }) => {
   };
 
   return (
-    <Box sx={{ mt: '1rem', paddingLeft: '0.5rem' }}>
+    <Box sx={{ mt: '1rem', paddingLeft: '0.5rem', mb: '1.5rem' }}>
       <Box
         sx={{
           display: 'flex',

@@ -25,11 +25,13 @@ const TransactionCard = ({ transaction }: TransactionCardProps) => {
         <CardContent sx={s}>
           <Box sx={{ ...s, width: '35%' }}>
             <Typography maxWidth="70%">{transaction[0]}</Typography>
-            <EastIcon color='secondary'/>
+            <EastIcon color="secondary" />
           </Box>
-          <Box sx={{ ...s, width: '40%' }}>
+          <Box sx={{ ...s, width: '55%' }}>
             <Typography maxWidth="70%">{transaction[1]}</Typography>
-            <Typography maxWidth="70%" color='#2e96ff'>{transaction[2]}</Typography>
+            <Typography maxWidth="70%" color="#2e96ff">
+              {transaction[2]}
+            </Typography>
           </Box>
         </CardContent>
       </CardActionArea>
