@@ -35,7 +35,7 @@ const Trip: FC<TripProps> = ({ trip }) => {
       <CardMedia
         component="img"
         sx={{ width: '30%', aspectRatio: '1/1', padding: '5%' }}
-        image="./src/assets/images/lol.JPG"
+        image="./src/assets/images/lol.png"
         alt="s"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
