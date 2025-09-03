@@ -1,0 +1,10 @@
+node_modules
+dist
+src/check.ts
+package-lock.json
+coverage/
+.env*
+.env.test
+src/database.db
+rdb
+volume
