@@ -9,7 +9,6 @@ const jwtSecret = process.env.JWT_SECRET as string;
 
 export const register = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  console.log('Register request body:', req.body);
 
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password required' });

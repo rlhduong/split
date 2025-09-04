@@ -1,6 +1,6 @@
 import Trip from '../models/Trip.model';
 import { v4 as uuidv4 } from 'uuid';
-import { TripData } from '../types';
+import { DynamoKey, TripData } from '../types';
 
 export const TripRepository = {
   createTrip: async (newTrip: TripData) => {
@@ -16,8 +16,20 @@ export const TripRepository = {
     return await Trip.get(tripId);
   },
 
-  getTripsByUserId: async (userId: string) => {
-    return await Trip.query('userId').eq(userId).exec();
+  getTripsByUserId: async (userId: string, limit: number) => {
+    return await Trip.query('userId').eq(userId).limit(limit).exec();
+  },
+
+  getTripsByUserIdWithStart: async (
+    userId: string,
+    limit: number,
+    lastKey: DynamoKey
+  ) => {
+    return await Trip.query('userId')
+      .eq(userId)
+      .limit(limit)
+      .startAt(lastKey)
+      .exec();
   },
 
   deleteTrip: async (tripId: string) => {

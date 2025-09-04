@@ -1,3 +1,4 @@
+import { decodeCursor, encodeCursor } from '../lib/utils';
 import { TripRepository } from '../repository/trip';
 import { TripData } from '../types';
 
@@ -8,8 +9,19 @@ export const TripService = {
   getTripById: async (tripId: string) => {
     return await TripRepository.getTripById(tripId);
   },
-  getTripsByUserId: async (userId: string) => {
-    return await TripRepository.getTripsByUserId(userId);
+  getTripsByUserId: async (userId: string, lastkey: string, limit: number) => {
+    if (lastkey) {
+      const key = decodeCursor(lastkey);
+      const trips = await TripRepository.getTripsByUserIdWithStart(
+        userId,
+        limit,
+        key
+      );
+      return { trips, lastkey: encodeCursor(trips.lastKey) };
+    } else {
+      const trips = await TripRepository.getTripsByUserId(userId, limit);
+      return { trips, lastkey: encodeCursor(trips.lastKey) };
+    }
   },
   deleteTrip: async (tripId: string) => {
     return await TripRepository.deleteTrip(tripId);

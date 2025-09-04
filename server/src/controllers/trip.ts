@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { TripService } from '../service/trip';
+import { encodeCursor } from '../lib/utils';
 
 export const createTrip = async (req: Request, res: Response) => {
   const userId = req.user?.userId as string;
@@ -33,11 +34,16 @@ export const getTrip = async (req: Request, res: Response) => {
 };
 
 export const getTrips = async (req: Request, res: Response) => {
+  const lastKeyRaw = req.query.lastKey;
+  const limitRaw = req.query.limit;
+
+  const lastKey = typeof lastKeyRaw === 'string' ? lastKeyRaw : '';
+  const limit = typeof limitRaw === 'string' ? Number(limitRaw) : 10;
   const userId = req.user?.userId!;
 
   try {
-    const trips = await TripService.getTripsByUserId(userId);
-    res.status(200).json({ trips });
+    const data = await TripService.getTripsByUserId(userId, lastKey, limit);
+    res.status(200).json({ trips: data.trips, lastKey: data.lastkey });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }

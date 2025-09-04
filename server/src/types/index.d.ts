@@ -34,6 +34,8 @@ interface ExpenseData {
   participants: string[];
 }
 
+type DynamoKey = Record<string, any>;
+
 declare global {
   namespace Express {
     interface Request {
@@ -42,4 +44,4 @@ declare global {
     }
   }
 }
-export { SessionUser, Participant, TripData, ExpenseData, User };
+export { SessionUser, Participant, TripData, ExpenseData, User, DynamoKey };
