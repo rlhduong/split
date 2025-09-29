@@ -7,7 +7,10 @@ export const ExpenseRepository = {
     return await Expense.get(expenseId);
   },
   getAllExpenses: async (tripId: string) => {
-    const expenses = await Expense.query('tripId').eq(tripId).exec();
+    const expenses = await Expense.query('tripId')
+      .eq(tripId)
+      .sort('descending')
+      .exec();
     return expenses;
   },
   createExpense: async (newExpense: ExpenseData) => {

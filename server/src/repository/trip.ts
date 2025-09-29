@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DynamoKey, TripData } from '../types';
 
 export const TripRepository = {
-  createTrip: async (newTrip: TripData) => {
+  createTrip: async (newTrip: Partial<TripData>) => {
     const trip = new Trip({
       id: uuidv4(),
       ...newTrip,
@@ -17,7 +17,11 @@ export const TripRepository = {
   },
 
   getTripsByUserId: async (userId: string, limit: number) => {
-    return await Trip.query('userId').eq(userId).limit(limit).exec();
+    return await Trip.query('userId')
+      .eq(userId)
+      .limit(limit)
+      .sort('descending')
+      .exec();
   },
 
   getTripsByUserIdWithStart: async (
@@ -29,6 +33,7 @@ export const TripRepository = {
       .eq(userId)
       .limit(limit)
       .startAt(lastKey)
+      .sort('descending')
       .exec();
   },
 
@@ -37,8 +42,8 @@ export const TripRepository = {
     return tripId;
   },
 
-  updateTrip: async (trip: Partial<TripData>) => {
-    const { id, ...newData } = trip;
-    return await Trip.update(id as string, { ...newData });
+  updateTrip: async (tripId: string, updates: Partial<TripData>) => {
+    const trip = await Trip.update({ id: tripId }, updates);
+    return trip;
   },
 };

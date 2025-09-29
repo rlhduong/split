@@ -1,10 +1,15 @@
+import { encodeDateToUnix, decodeUnixToDate } from '../lib/utils';
 import { ExpenseRepository } from '../repository/expense';
 import { TripRepository } from '../repository/trip';
-import { ExpenseData, TripData, Participant } from '../types';
+import { ExpenseData, TripData, Participant, Settlement } from '../types';
 
 export const ExpenseService = {
   getAllExpenses: async (tripId: string) => {
-    return await ExpenseRepository.getAllExpenses(tripId);
+    const expenses = await ExpenseRepository.getAllExpenses(tripId);
+    for (const exp of expenses) {
+      exp.createdAt = decodeUnixToDate(exp.createdAt);
+    }
+    return expenses;
   },
   createExpense: async (trip: TripData, newExpense: ExpenseData) => {
     const friends = trip.participants || [];
@@ -33,7 +38,11 @@ export const ExpenseService = {
 
     trip.total += newExpense.amount;
     trip.participants = friends;
-    await TripRepository.updateTrip(trip);
+    await TripRepository.updateTrip(trip.id!, {
+      total: trip.total,
+      participants: friends,
+    });
+    newExpense.createdAt = encodeDateToUnix(new Date().toISOString());
     return await ExpenseRepository.createExpense(newExpense);
   },
   deleteExpense: async (trip: TripData, expenseId: string) => {
@@ -57,7 +66,10 @@ export const ExpenseService = {
       }
     }
 
-    await TripRepository.updateTrip(trip);
+    await TripRepository.updateTrip(trip.id!, {
+      total: trip.total,
+      participants: trip.participants,
+    });
     await ExpenseRepository.deleteExpense(expenseId);
     return expenseId;
   },
@@ -70,7 +82,7 @@ export const ExpenseService = {
     const participants = trip.participants.filter(
       (p: Participant) => !isZero(p.net)
     );
-    const settlements: Array<Array<string>> = [];
+    const settlements: Settlement[] = [];
 
     while (participants.length >= 2) {
       const d = participants.shift()!;
@@ -85,12 +97,11 @@ export const ExpenseService = {
         }
         participants.sort((a: Participant, b: Participant) => a.net - b.net);
       }
-
-      const settlement: string[] = [];
-      settlement.push(d.name);
-      settlement.push(c.name);
-      settlement.push(Math.min(Math.abs(d.net), Math.abs(c.net)).toFixed(2));
-      settlements.push(settlement);
+      settlements.push({
+        from: d.name,
+        to: c.name,
+        amount: Math.min(Math.abs(d.net), Math.abs(c.net)),
+      });
     }
 
     return settlements;

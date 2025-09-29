@@ -25,4 +25,8 @@ export const UserService = {
 
     return user;
   },
+
+  getUserById: async (id: string) => {
+    return UserRepository.getUserById(id);
+  },
 };

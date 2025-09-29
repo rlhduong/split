@@ -15,13 +15,19 @@ export const UserRepository = {
   },
 
   getUserByEmail: async (email: string) => {
-    console.log(1234);
     const users = await User.query('email').eq(email).using('email').exec();
-    console.log(users);
     if (!users || users.length === 0) {
       return undefined;
     }
 
     return users[0] as unknown as UserType;
+  },
+
+  getUserById: async (id: string) => {
+    const user = await User.get(id);
+    if (!user) {
+      return undefined;
+    }
+    return user as unknown as UserType;
   },
 };

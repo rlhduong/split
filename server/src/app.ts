@@ -22,6 +22,14 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan('common'));
 app.use(cookieParser());
 
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // your Next.js frontend
+    credentials: true, // allow cookies/auth headers
+  })
+);
+
 if (process.env.NODE_ENV && process.env.NODE_ENV === 'dev') {
   dynamoose.aws.ddb.local('http://localhost:8000');
 }

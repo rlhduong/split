@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import Trip from '../models/Trip.model';
 import { ExpenseService } from '../service/expense';
-
-import { Participant } from '../types';
 
 export const getAllExpenses = async (req: Request, res: Response) => {
   const tripId = req.params.tripId;
@@ -16,15 +13,15 @@ export const getAllExpenses = async (req: Request, res: Response) => {
 };
 
 export const addExpense = async (req: Request, res: Response) => {
-  const { description, amount, date, payer, participants } = req.body;
+  const { description, amount, category, payer, participants } = req.body;
 
   try {
     const trip = req.trip!;
     const expense = await ExpenseService.createExpense(trip, {
       tripId: trip.id as string,
+      category,
       description,
       amount,
-      date,
       payer,
       participants,
     });

@@ -18,3 +18,11 @@ export function encodeCursor(key: DynamoKey | undefined): string {
 export function decodeCursor(cursor: string): DynamoKey {
   return JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'));
 }
+
+export function encodeDateToUnix(dateStr: string): number {
+  return Math.floor(new Date(dateStr).getTime() / 1000);
+}
+
+export function decodeUnixToDate(unixTimestamp: number): string {
+  return new Date(unixTimestamp * 1000).toISOString();
+}
