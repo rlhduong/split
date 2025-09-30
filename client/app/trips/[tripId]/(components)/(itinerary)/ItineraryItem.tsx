@@ -47,8 +47,11 @@ const Itinerary = ({
                   Add Activity
                 </DialogTitle>
                 <ActivityForm
-                  title={itinerary.title}
-                  notes={itinerary.notes!}
+                  data={{
+                    title: itinerary.title,
+                    notes: itinerary.notes!,
+                    time: itinerary.time!,
+                  }}
                   dayIndex={dayIndex}
                   index={index}
                   actions={actions}

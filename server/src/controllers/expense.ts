@@ -35,6 +35,28 @@ export const addExpense = async (req: Request, res: Response) => {
   }
 };
 
+export const updateExpense = async (req: Request, res: Response) => {
+  const { expenseId } = req.params;
+  const { description, amount, category, payer, participants } = req.body;
+  try {
+    const trip = req.trip!;
+    const expense = await ExpenseService.updateExpense(trip, expenseId, {
+      description,
+      amount,
+      category,
+      payer,
+      participants,
+    });
+    res.status(200).json({ message: 'Expense updated successfully', expense });
+  } catch (error: any) {
+    if (error.message === `${payer} is not inside the trip`) {
+      res.status(400).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+};
+
 export const deleteExpense = async (req: Request, res: Response) => {
   const { expenseId } = req.params;
 

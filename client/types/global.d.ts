@@ -24,6 +24,7 @@ declare global {
   interface ItineraryItem {
     title: string;
     notes?: string;
+    time?: number;
   }
 
   interface TripDay {

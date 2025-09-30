@@ -27,8 +27,7 @@ const ActivityDialog = ({
           Add Activity
         </DialogTitle>
         <ActivityForm
-          title=""
-          notes=""
+          data={{ title: '', notes: '', time: 900 }}
           index={-1}
           dayIndex={index}
           actions={actions}

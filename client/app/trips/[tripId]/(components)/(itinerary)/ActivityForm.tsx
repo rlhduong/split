@@ -3,20 +3,24 @@ import { Button } from '@/components/ui/button';
 import { DialogClose, DialogFooter } from '@/components/ui/dialog';
 import { useState } from 'react';
 
+interface FormData {
+  title: string;
+  notes: string;
+  time: number;
+}
+
 const ActivityForm = ({
-  title,
-  notes,
+  data,
   dayIndex,
   index,
   actions,
 }: {
-  title: string;
-  notes: string;
+  data: FormData;
   dayIndex: number;
   index: number;
   actions: EditItineraryActions;
 }) => {
-  const [formData, setFormData] = useState({ title, notes });
+  const [formData, setFormData] = useState(data);
 
   const handleSubmit = () => {
     if (index === -1) {
@@ -49,6 +53,9 @@ const ActivityForm = ({
             }
           />
         </div>
+        <div className="grid gap-3">
+          <TimeInput formData={formData} onChange={setFormData} />
+        </div>
       </div>
       <DialogFooter>
         <DialogClose asChild>
@@ -66,6 +73,45 @@ const ActivityForm = ({
         </DialogClose>
       </DialogFooter>
     </>
+  );
+};
+
+const TimeInput = ({
+  formData,
+  onChange,
+}: {
+  formData: FormData;
+  onChange: (data: FormData) => void;
+}) => {
+  const timeToString = (time: number): string => {
+    const hours = Math.floor(time / 100);
+    const minutes = time % 100;
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`;
+  };
+
+  const stringToTime = (timeString: string): number => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return hours * 100 + minutes;
+  };
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const timeValue = e.target.value; // "14:00"
+    const militaryTime = stringToTime(timeValue); // 1400
+    onChange({
+      ...formData,
+      time: militaryTime,
+    });
+  };
+
+  return (
+    <Input
+      type="time"
+      value={timeToString(formData.time)}
+      onChange={handleTimeChange}
+      className="form__input !w-1/5 appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+    />
   );
 };
 

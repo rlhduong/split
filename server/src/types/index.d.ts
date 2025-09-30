@@ -23,6 +23,7 @@ interface TripLocation {
 interface ItineraryItem {
   title: string;
   notes?: string;
+  time?: number;
 }
 
 interface TripDay {
@@ -44,6 +45,7 @@ interface TripData {
 }
 
 interface ExpenseData {
+  id?: string;
   tripId: string;
   category: string;
   description: string;

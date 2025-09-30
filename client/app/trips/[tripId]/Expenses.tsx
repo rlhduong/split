@@ -76,7 +76,9 @@ const MyTabs = ({
         <SettleTab tripId={tripId} total={total} />
       </TabsContent>
       <TabsContent value="graph">
-        <SpendingsTab expenses={expenses} />
+        <div className="h-64 sm:h-full">
+          <SpendingsTab expenses={expenses} />
+        </div>
       </TabsContent>
     </Tabs>
   );

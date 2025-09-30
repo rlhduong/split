@@ -23,7 +23,7 @@ import { CreateExpenseFormData } from '@/lib/schema';
 const categories = [
   {
     label: 'Accommodation',
-    values: ['Hotels', 'Airbnb', 'Camping', 'Resorts'],
+    values: ['Hotels', 'Airbnb', 'Camping'],
   },
   {
     label: 'Transportation',

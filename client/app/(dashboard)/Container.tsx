@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { tripService } from '@/service/tripService';
 import Card from './Card';
+import Loader from '@/components/Loader';
 
 const Container = () => {
   const { data, isLoading, error } = useQuery({
@@ -9,7 +10,7 @@ const Container = () => {
     staleTime: 1000 * 60 * 10, // 10 minutes
   });
   if (error) return <div>Error loading trips</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader />;
   return (
     <div className="dashboard-container">
       {data?.trips.map((trip) => (

@@ -18,6 +18,17 @@ export const ExpenseService = {
     }
   ) => request.post(`/trips/${tripId}/expenses`, data),
 
+  updateExpense: (
+    tripId: string,
+    expenseId: string,
+    data: {
+      description?: string;
+      amount?: number;
+      payer?: string;
+      participants?: string[];
+    }
+  ) => request.put(`/trips/${tripId}/expenses/${expenseId}`, data),
+
   deleteExpense: (tripId: string, expenseId: string) =>
     request.delete(`/trips/${tripId}/expenses/${expenseId}`),
 

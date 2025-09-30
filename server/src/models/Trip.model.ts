@@ -22,6 +22,9 @@ const itinerary = new Schema({
   notes: {
     type: String,
   },
+  time: {
+    type: Number,
+  }
 });
 
 const day = new Schema({

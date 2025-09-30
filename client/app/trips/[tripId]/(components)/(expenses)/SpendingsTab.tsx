@@ -1,5 +1,6 @@
 import { useExpenseBarChartData } from '@/hook/useExpenseBarChartData';
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useState } from 'react';
 
 const SpendingsTab = ({ expenses }: { expenses: ExpenseData[] }) => {
   const { barChartData } = useExpenseBarChartData(expenses);
@@ -11,7 +12,12 @@ const SpendingsTab = ({ expenses }: { expenses: ExpenseData[] }) => {
         barSize={40}
         margin={{ top: 20, bottom: 5 }}
       >
-        <XAxis dataKey="category" stroke="rgb(156 163 175)" />
+        <XAxis
+          dataKey="category"
+          stroke="rgb(156 163 175)"
+          tick={<CustomTick />}
+          interval={0}
+        />
         <Tooltip
           contentStyle={{
             backgroundColor: '#1f2937',
@@ -29,3 +35,38 @@ const SpendingsTab = ({ expenses }: { expenses: ExpenseData[] }) => {
 };
 
 export default SpendingsTab;
+
+const CustomTick = (props: any) => {
+  const categoryShortForms: Record<string, string> = {
+    Accommodation: 'Accom.',
+    Transportation: 'Transport',
+    'Food & Drinks': 'F&B',
+    Shopping: 'Shop',
+    Health: 'Health',
+    Utilities: 'Utils',
+    Miscellaneous: 'Misc.',
+  };
+  const { x, y, payload } = props;
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
+  const text =
+    windowWidth < 1024
+      ? categoryShortForms[payload.value] || payload.value
+      : payload.value;
+
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={0}
+        dy={16}
+        textAnchor="middle"
+        fill="rgb(156 163 175)"
+        fontSize={windowWidth < 640 ? 10 : 12}
+      >
+        {text}
+      </text>
+    </g>
+  );
+};

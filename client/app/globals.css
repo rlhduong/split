@@ -249,3 +249,7 @@
 .trip-form__calendar {
   @apply bg-customgreys-secondarybg border-none;
 }
+
+.actions-button {
+  @apply text-gray-400 hover:text-gray-200 transition-colors duration-300 ease-in-out hover:bg-customgreys-primarybg;
+}

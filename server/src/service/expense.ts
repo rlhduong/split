@@ -1,3 +1,4 @@
+import { tr } from 'date-fns/locale';
 import { encodeDateToUnix, decodeUnixToDate } from '../lib/utils';
 import { ExpenseRepository } from '../repository/expense';
 import { TripRepository } from '../repository/trip';
@@ -45,6 +46,69 @@ export const ExpenseService = {
     newExpense.createdAt = encodeDateToUnix(new Date().toISOString());
     return await ExpenseRepository.createExpense(newExpense);
   },
+
+  updateExpense: async (
+    trip: TripData,
+    expenseId: string,
+    updatedFields: Partial<ExpenseData>
+  ) => {
+    const oldExpense = await ExpenseRepository.getExpenseById(expenseId);
+    const oldAmt = oldExpense.amount / oldExpense.participants.length;
+
+    // Revert old expense effect
+    const oldPayerFr = trip.participants.find(
+      (fr: Participant) => fr.name === oldExpense.payer
+    );
+
+    for (const p of oldExpense.participants) {
+      const f = trip.participants.find((fr: Participant) => fr.name === p);
+      if (f) {
+        f.spent -= oldAmt;
+        if (p !== oldExpense.payer && oldPayerFr) {
+          f.net += oldAmt;
+          oldPayerFr.net -= oldAmt;
+        }
+      }
+    }
+
+    // Apply new expense effect
+    const newAmt =
+      (updatedFields.amount || oldExpense.amount) /
+      (updatedFields.participants || oldExpense.participants).length;
+    const newPayerFr = trip.participants.find(
+      (fr: Participant) => fr.name === (updatedFields.payer || oldExpense.payer)
+    );
+
+    if (!newPayerFr) {
+      throw new Error(
+        `${updatedFields.payer || oldExpense.payer} is not inside the trip`
+      );
+    }
+
+    for (const p of updatedFields.participants || oldExpense.participants) {
+      const f = trip.participants.find((fr: Participant) => fr.name === p);
+      if (!f) {
+        throw new Error(`${p} is not inside the trip`);
+      }
+      f.spent += newAmt;
+      if (p !== (updatedFields.payer || oldExpense.payer)) {
+        f.net -= newAmt;
+        newPayerFr.net += newAmt;
+      }
+    }
+
+    trip.total =
+      trip.total -
+      oldExpense.amount +
+      (updatedFields.amount || oldExpense.amount);
+    await TripRepository.updateTrip(trip.id!, {
+      total: trip.total,
+      participants: trip.participants,
+    });
+
+    return await ExpenseRepository.updateExpense(expenseId, updatedFields);
+  },
+
   deleteExpense: async (trip: TripData, expenseId: string) => {
     const expense = await ExpenseRepository.getExpenseById(expenseId);
 

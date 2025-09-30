@@ -21,6 +21,13 @@ export const ExpenseRepository = {
     await expense.save();
     return expense;
   },
+  updateExpense: async (
+    expenseId: string,
+    updatedFields: Partial<ExpenseData>
+  ) => {
+    const expense = await Expense.update({ id: expenseId }, updatedFields);
+    return expense;
+  },
   deleteExpense: async (expenseId: string) => {
     await Expense.delete(expenseId);
   },
