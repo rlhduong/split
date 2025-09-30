@@ -65,3 +65,30 @@ export const logout = (req: Request, res: Response) => {
 export const status = async (req: Request, res: Response) => {
   res.status(200).json({ userId: req.user?.userId });
 };
+
+export const googleLogin = async (req: Request, res: Response) => {
+  const { code } = req.body;
+
+  if (!code) {
+    return res.status(400).json({ message: 'Google code required' });
+  }
+
+  try {
+    const user = await UserService.googleLogin(code);
+    const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '7d' });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+      path: '/',
+    });
+    res.status(200).json({ message: 'User logged in successfully' });
+  } catch (error: any) {
+    if (error.message === 'Invalid token payload') {
+      res.status(401).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};

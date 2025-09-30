@@ -13,4 +13,7 @@ export const userService = {
     const res = await request.get('/users/status');
     return res as Session | null;
   },
+
+  googleLogin: (data: { code: string }) =>
+    request.post('/users/google-login', data),
 };

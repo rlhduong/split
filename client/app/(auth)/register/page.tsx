@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userService } from '@/service/userService';
+import GoogleSignInButton from '../GoogleSignInButton';
 
 const page = () => {
   const queryClient = useQueryClient();
@@ -112,13 +113,7 @@ const page = () => {
           <hr className="flex-grow" />
         </div>
 
-        <Button
-          variant="outline"
-          className="w-full mt-4 bg-customgreys-secondarybg border-none outline-none text-white-50 hover:!bg-primary-700 hover:text-customgreys-darkGrey cursor-pointer"
-        >
-          <img src="/icons/google.svg" alt="Google" className="w-4 h-4 mr-2" />
-          Sign up with Google
-        </Button>
+        <GoogleSignInButton />
       </main>
     </div>
   );
