@@ -37,7 +37,7 @@ export const getTrip = async (req: Request, res: Response) => {
 export const getTrips = async (req: Request, res: Response) => {
   const lastKeyRaw = req.query.lastKey;
   const limitRaw = req.query.limit;
-
+  console.log('limitRaw:', limitRaw);
   const lastKey = typeof lastKeyRaw === 'string' ? lastKeyRaw : '';
   const limit = typeof limitRaw === 'string' ? Number(limitRaw) : 10;
   const userId = req.user?.userId!;

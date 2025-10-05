@@ -41,6 +41,6 @@ const schema = new Schema({
   },
 });
 
-export default model('Expense', schema, {
+export default model('Tripping-Expense', schema, {
   create: true,
 });

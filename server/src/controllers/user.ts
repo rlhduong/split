@@ -2,6 +2,8 @@ import { Response, Request } from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { UserService } from '../service/user';
+import { setAuthCookie } from '../lib/cookie';
+import { set } from 'mongoose';
 
 //Config
 dotenv.config();
@@ -17,13 +19,7 @@ export const register = async (req: Request, res: Response) => {
   try {
     const user = await UserService.register(email, password);
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '7d' });
-
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
-      path: '/',
-    });
+    setAuthCookie(res, token);
     res.status(200).json({ message: 'User registered successfully' });
   } catch (error: any) {
     if (error.message === 'User already exists') {
@@ -41,12 +37,7 @@ export const login = async (req: Request, res: Response) => {
     const user = await UserService.login(email, password);
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '7d' });
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
-      path: '/',
-    });
+    setAuthCookie(res, token);
     res.status(200).json({ message: 'User logged in successfully' });
   } catch (error: any) {
     if (error.message === 'Invalid email or password') {
@@ -76,13 +67,7 @@ export const googleLogin = async (req: Request, res: Response) => {
   try {
     const user = await UserService.googleLogin(code);
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '7d' });
-
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
-      path: '/',
-    });
+    setAuthCookie(res, token);
     res.status(200).json({ message: 'User logged in successfully' });
   } catch (error: any) {
     if (error.message === 'Invalid token payload') {

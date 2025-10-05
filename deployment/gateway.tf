@@ -3,16 +3,11 @@ resource "aws_apigatewayv2_api" "lambda_api" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = ["*"]
-    allow_methods = [
-      "OPTIONS",
-      "POST",
-      "GET",
-      "PUT",
-      "DELETE",
-      "PATCH"
-    ]
-    allow_headers = ["Content-Type", "Authorization"]
+    allow_origins     = ["http://localhost:3000"]
+    allow_methods     = ["OPTIONS", "POST", "GET", "PUT", "DELETE", "PATCH"]
+    allow_headers     = ["Content-Type", "Authorization"]
+    allow_credentials = true
+    expose_headers    = ["*"]
   }
 }
 

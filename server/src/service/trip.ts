@@ -25,28 +25,14 @@ export const TripService = {
     return trip;
   },
   getTripsByUserId: async (userId: string, lastkey: string, limit: number) => {
-    if (lastkey) {
-      const key = decodeCursor(lastkey);
-      const trips = await TripRepository.getTripsByUserIdWithStart(
-        userId,
-        limit,
-        key
-      );
-      for (const trip of trips) {
-        trip.startDate = decodeUnixToDate(trip.startDate);
-        trip.endDate = decodeUnixToDate(trip.endDate);
-        trip.createdAt = decodeUnixToDate(trip.createdAt);
-      }
-      return { trips, lastkey: encodeCursor(trips.lastKey) };
-    } else {
-      const trips = await TripRepository.getTripsByUserId(userId, limit);
-      for (const trip of trips) {
-        trip.startDate = decodeUnixToDate(trip.startDate);
-        trip.endDate = decodeUnixToDate(trip.endDate);
-        trip.createdAt = decodeUnixToDate(trip.createdAt);
-      }
-      return { trips, lastkey: encodeCursor(trips.lastKey) };
+    const key = lastkey ? decodeCursor(lastkey) : null;
+    const trips = await TripRepository.getTripsByUserId(userId, limit, key);
+    for (const trip of trips) {
+      trip.startDate = decodeUnixToDate(trip.startDate);
+      trip.endDate = decodeUnixToDate(trip.endDate);
+      trip.createdAt = decodeUnixToDate(trip.createdAt);
     }
+    return { trips, lastkey: encodeCursor(trips.lastKey) };
   },
   deleteTrip: async (tripId: string) => {
     return await TripRepository.deleteTrip(tripId);

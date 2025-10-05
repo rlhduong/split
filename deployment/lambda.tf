@@ -30,8 +30,12 @@ resource "aws_lambda_function" "app" {
 
   environment {
     variables = {
-      PORT           = 8080
-      JWT_SECRET_KEY = var.jwt_secret
+      PORT                 = var.port
+      JWT_SECRET_KEY       = var.jwt_secret
+      GOOGLE_CLIENT_ID     = var.google_client_id
+      GOOGLE_CLIENT_SECRET = var.google_client_secret
+      NODE_ENV             = var.node_env
+      LOCALSTACK           = var.localstack ? "true" : "false"
     }
   }
 }
@@ -45,11 +49,11 @@ resource "aws_lambda_permission" "api_gw_app" {
 }
 
 resource "aws_apigatewayv2_integration" "app" {
-  api_id             = aws_apigatewayv2_api.lambda_api.id
-  integration_type   = "AWS_PROXY"
-  integration_uri    = aws_lambda_function.app.invoke_arn
-  integration_method = "POST"
-  payload_format_version  = "2.0"
+  api_id                 = aws_apigatewayv2_api.lambda_api.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.app.invoke_arn
+  integration_method     = "POST"
+  payload_format_version = "2.0"
 }
 
 resource "aws_apigatewayv2_route" "app" {

@@ -9,15 +9,15 @@ terraform {
 
 provider "aws" {
   region     = "ap-southeast-2"
-  access_key = var.use_localstack ? "test" : null
-  secret_key = var.use_localstack ? "test" : null
+  access_key = var.localstack ? "test" : null
+  secret_key = var.localstack ? "test" : null
 
-  s3_use_path_style           = var.use_localstack
-  skip_credentials_validation = var.use_localstack
-  skip_requesting_account_id  = var.use_localstack
+  s3_use_path_style           = var.localstack
+  skip_credentials_validation = var.localstack
+  skip_requesting_account_id  = var.localstack
 
   dynamic "endpoints" {
-    for_each = var.use_localstack ? [1] : []
+    for_each = var.localstack ? [1] : []
     content {
       apigateway     = "http://localhost:4566"
       apigatewayv2   = "http://localhost:4566"

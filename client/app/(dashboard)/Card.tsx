@@ -13,13 +13,13 @@ const TripCard = ({ trip }: { trip: TripData }) => {
   const router = useRouter();
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      onClick={() => router.push(`/trips/${trip.id}`)}
-    >
-      <Card className="trip-card gap-0">
+    <Card className="trip-card gap-0">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        onClick={() => router.push(`/trips/${trip.id}`)}
+      >
         <CardHeader className="px-0">
           <CardTitle className="text-lg font-semibold">{trip.name}</CardTitle>
         </CardHeader>
@@ -31,8 +31,8 @@ const TripCard = ({ trip }: { trip: TripData }) => {
           {format(new Date(trip.startDate), 'dd/MM/yyyy')} -{' '}
           {format(new Date(trip.endDate), 'dd/MM/yyyy')}
         </CardDescription>
-      </Card>
-    </motion.div>
+      </motion.div>
+    </Card>
   );
 };
 

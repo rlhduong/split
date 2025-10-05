@@ -22,13 +22,14 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan('common'));
 app.use(cookieParser());
 
+/* DEPLOYMENT CONFIGS */
 
-app.use(
-  cors({
-    origin: "http://localhost:3000", // your Next.js frontend
-    credentials: true, // allow cookies/auth headers
-  })
-);
+// app.use(
+//   cors({
+//     origin: 'http://localhost:3000',
+//     credentials: true,
+//   })
+// );
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === 'dev') {
   dynamoose.aws.ddb.local('http://localhost:8000');
@@ -61,6 +62,11 @@ app.use('/trips/:tripId/expenses', expensesRoutes);
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.LOCALSTACK);
+  console.log(process.env.JWT_SECRET_KEY);
+  console.log(process.env.GOOGLE_CLIENT_ID);
+  console.log(process.env.GOOGLE_CLIENT_SECRET);
 });
 
 export default app;

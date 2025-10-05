@@ -1,11 +1,11 @@
 import { request } from '@/lib/api';
 
 export const tripService = {
-  getTrips: async () => {
-    const res = await request.get('/trips');
+  getTrips: async ({ lastKey }: { lastKey: string }) => {
+    const res = await request.get('/trips', { params: { lastKey, limit: 20 } });
     return res as {
       trips: TripData[];
-      lastkey: string;
+      lastKey: string;
     };
   },
   getTripById: async (id: string) => {

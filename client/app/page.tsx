@@ -7,13 +7,13 @@ import Landing from './(landing)/Landing';
 import { useSession } from '@/hook/useSession';
 
 const page = () => {
-  const { data: session } = useSession();
+  const { data: session, isLoading } = useSession();
 
   return (
-    <div className="flex flex-row justify-center w-full min-h-screen bg-customgreys-primarybg">
+    <div className="flex flex-row justify-center w-full min-h-screen bg-customgreys-primarybg pb-20">
       <main className="flex flex-col h-full w-[90%] md:w-3/4 lg:w-2/3 gap-18">
         <NavBar session={session} />
-        {session ? <Dashboard /> : <Landing />}
+        {!isLoading && (session ? <Dashboard /> : <Landing />)}
       </main>
     </div>
   );

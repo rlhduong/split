@@ -16,27 +16,17 @@ export const TripRepository = {
     return await Trip.get(tripId);
   },
 
-  getTripsByUserId: async (userId: string, limit: number) => {
-    return await Trip.query('userId')
-      .eq(userId)
-      .limit(limit)
-      .sort('descending')
-      .exec();
-  },
-
-  getTripsByUserIdWithStart: async (
+  getTripsByUserId: async (
     userId: string,
     limit: number,
-    lastKey: DynamoKey
+    lastKey: DynamoKey | null
   ) => {
-    return await Trip.query('userId')
-      .eq(userId)
-      .limit(limit)
-      .startAt(lastKey)
-      .sort('descending')
-      .exec();
+    let query = Trip.query('userId').eq(userId).limit(limit).sort('descending');
+    if (lastKey) {
+      query = query.startAt(lastKey);
+    }
+    return await query.exec();
   },
-
   deleteTrip: async (tripId: string) => {
     await Trip.delete(tripId);
     return tripId;

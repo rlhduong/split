@@ -106,6 +106,6 @@ const schema = new Schema({
   },
 });
 
-export default model('Trip', schema, {
+export default model('Tripping-Trip', schema, {
   create: true,
 });
