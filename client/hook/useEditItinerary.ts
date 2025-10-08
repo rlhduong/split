@@ -85,7 +85,7 @@ export const useEditItinerary = (tripId: string, days: TripDay[]) => {
   const currDays = useMemo(() => {
     const daysFromStore = EditItineraryStore.getState().currDays;
     return daysFromStore.length ? daysFromStore : days;
-  }, [store.currDays, days, tripId]);
+  }, [days]);
 
   useEffect(() => {
     const currTripId = EditItineraryStore.getState().tripId;
@@ -93,7 +93,7 @@ export const useEditItinerary = (tripId: string, days: TripDay[]) => {
       store.setCurrDays(days);
       store.setTripId(tripId);
     }
-  }, [tripId]);
+  }, [tripId, days, store]);
 
   const update = useCallback(async () => {
     try {
@@ -102,12 +102,10 @@ export const useEditItinerary = (tripId: string, days: TripDay[]) => {
       await tripService.updateTrip(currTripId, { days: currentDays });
       queryClient.invalidateQueries({ queryKey: ['trip', currTripId] });
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Failed to save';
-      console.error('❌ Save failed:', err);
+      console.error(err);
     } finally {
     }
-  }, [tripId]);
+  }, [queryClient]);
 
   const executeWithUpdate = useCallback(
     (action: () => void) => {
@@ -125,9 +123,13 @@ export const useEditItinerary = (tripId: string, days: TripDay[]) => {
       toast.success(`Day ${dayIndex + 1} removed successfully`);
       return;
     },
-    addItineraryItem: (dayIndex: number, item: any) =>
+    addItineraryItem: (dayIndex: number, item: ItineraryItem) =>
       executeWithUpdate(() => store.addItineraryItem(dayIndex, item)),
-    editItineraryItem: (dayIndex: number, itemIndex: number, newItem: any) =>
+    editItineraryItem: (
+      dayIndex: number,
+      itemIndex: number,
+      newItem: ItineraryItem
+    ) =>
       executeWithUpdate(() =>
         store.editItineraryItem(dayIndex, itemIndex, newItem)
       ),

@@ -17,7 +17,6 @@ const Container = () => {
   } = useInfiniteQuery({
     queryKey: ['trips'],
     queryFn: ({ pageParam }) => {
-      console.log('Fetching trips with lastKey:', pageParam);
       return tripService.getTrips({ lastKey: pageParam });
     },
     initialPageParam: '',

@@ -6,7 +6,7 @@ import Dashboard from './(dashboard)/Dashboard';
 import Landing from './(landing)/Landing';
 import { useSession } from '@/hook/useSession';
 
-const page = () => {
+const Page = () => {
   const { data: session, isLoading } = useSession();
 
   return (
@@ -19,4 +19,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -43,7 +43,7 @@ const TravellerForm = ({ tripId }: { tripId: string }) => {
       queryClient.invalidateQueries({ queryKey: ['trip', tripId] });
       setIsOpen(false);
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.error('Error adding traveller:', error);
     },
   });

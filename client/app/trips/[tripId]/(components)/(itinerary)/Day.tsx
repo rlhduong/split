@@ -1,6 +1,11 @@
 'use client';
 
-import { Draggable, DragDropContext, Droppable } from '@hello-pangea/dnd';
+import {
+  Draggable,
+  DragDropContext,
+  Droppable,
+  DropResult,
+} from '@hello-pangea/dnd';
 import { Grip, Trash, PanelTopOpen } from 'lucide-react';
 import {
   Collapsible,
@@ -22,7 +27,7 @@ const Day = ({
 }) => {
   const [open, setOpen] = useState(false);
 
-  const onDragEnd = async (result: any) => {
+  const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
     actions.swapItineraryItems(
       index,

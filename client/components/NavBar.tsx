@@ -21,7 +21,7 @@ const NavBar = ({ session }: NavBarProps) => {
       queryClient.invalidateQueries({ queryKey: ['session'] });
       router.push('/signin');
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.error('Logout failed:', error);
     },
   });

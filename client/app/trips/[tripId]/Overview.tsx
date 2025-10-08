@@ -1,5 +1,6 @@
 import { Calendar } from 'lucide-react';
 import { format, differenceInDays } from 'date-fns';
+import Map from './(components)/Map';
 
 const Overview = ({ trip }: TripProps) => {
   return (
@@ -24,6 +25,7 @@ const Overview = ({ trip }: TripProps) => {
           </p>
         </div>
       </div>
+      <Map locations={trip.locations} tripId={trip.id!} />
     </div>
   );
 };

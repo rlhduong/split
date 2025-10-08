@@ -1,10 +1,7 @@
-import LandingHero from './LandingHero';
-
 const Landing = () => {
   return (
     <div className="flex flex-col">
       <Subtitle />
-      {/* <LandingHero /> */}
     </div>
   );
 };

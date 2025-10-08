@@ -14,14 +14,14 @@ export const request = {
     const res = await api.get<T>(url, { ...config, withCredentials: true });
     return res.data;
   },
-  post: async <T>(url: string, data?: any, config = {}) => {
+  post: async <T, B = unknown>(url: string, data?: B, config = {}) => {
     const res = await api.post<T>(url, data, {
       ...config,
       withCredentials: true,
     });
     return res.data;
   },
-  put: async <T>(url: string, data?: any, config = {}) => {
+  put: async <T, B = unknown>(url: string, data?: B, config = {}) => {
     const res = await api.put<T>(url, data, {
       ...config,
       withCredentials: true,

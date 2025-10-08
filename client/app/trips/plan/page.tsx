@@ -30,7 +30,7 @@ import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
-const page = () => {
+const Page = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data: session } = useSession();
@@ -46,18 +46,18 @@ const page = () => {
     },
   });
 
-  const { mutate, isPending, isError } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data: CreateTripFormData) =>
       tripService.createTrip({
         name: data.name,
         startDate: data.startDate.toISOString(),
         endDate: data.endDate.toISOString(),
       }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['trips'] });
       router.push('/');
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.error('Login failed:', error);
     },
   });
@@ -224,4 +224,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

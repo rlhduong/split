@@ -36,7 +36,15 @@ const SpendingsTab = ({ expenses }: { expenses: ExpenseData[] }) => {
 
 export default SpendingsTab;
 
-const CustomTick = (props: any) => {
+interface CustomTickProps {
+  x?: number;
+  y?: number;
+  payload?: {
+    value: string;
+  };
+}
+
+const CustomTick = ({ x = 0, y = 0, payload }: CustomTickProps) => {
   const categoryShortForms: Record<string, string> = {
     Accommodation: 'Accom.',
     Transportation: 'Transport',
@@ -46,14 +54,16 @@ const CustomTick = (props: any) => {
     Utilities: 'Utils',
     Miscellaneous: 'Misc.',
   };
-  const { x, y, payload } = props;
-  const [windowWidth, setWindowWidth] = useState(
+
+  const [windowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1024
   );
-  const text =
-    windowWidth < 1024
+
+  const textValue = payload
+    ? windowWidth < 1024
       ? categoryShortForms[payload.value] || payload.value
-      : payload.value;
+      : payload.value
+    : '';
 
   return (
     <g transform={`translate(${x},${y})`}>
@@ -65,7 +75,7 @@ const CustomTick = (props: any) => {
         fill="rgb(156 163 175)"
         fontSize={windowWidth < 640 ? 10 : 12}
       >
-        {text}
+        {textValue}
       </text>
     </g>
   );

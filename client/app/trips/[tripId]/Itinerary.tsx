@@ -1,4 +1,4 @@
-import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import Day from './(components)/(itinerary)/Day';
 import { useEditItinerary } from '@/hook/useEditItinerary';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { differenceInDays } from 'date-fns';
 const Itinerary = ({ trip }: TripProps) => {
   const { currDays, ...actions } = useEditItinerary(trip.id!, trip.days);
 
-  const onDragEnd = async (result: any) => {
+  const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
     actions.swapDays(result.source.index, result.destination.index);
   };

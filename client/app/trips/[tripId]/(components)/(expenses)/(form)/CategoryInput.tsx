@@ -70,7 +70,7 @@ const CategoryInput = ({
     <FormField
       control={form.control}
       name="category"
-      render={({ field }) => (
+      render={() => (
         <FormField
           control={form.control}
           name="category"

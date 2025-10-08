@@ -54,7 +54,7 @@ const ExpenseForm = ({
       queryClient.invalidateQueries({ queryKey: ['expenses', tripId] });
       queryClient.invalidateQueries({ queryKey: ['settlements', tripId] });
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.error('Error adding traveller:', error);
     },
   });

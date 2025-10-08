@@ -7,7 +7,8 @@ import { useSession } from '@/hook/useSession';
 import NavBar from '@/components/NavBar';
 import Tab from './Tab';
 import { Loader } from 'lucide-react';
-const page = () => {
+
+const Page = () => {
   const { tripId } = useParams();
   const { data: session } = useSession();
 
@@ -36,4 +37,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

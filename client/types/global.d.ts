@@ -1,7 +1,4 @@
 declare global {
-  interface Window {
-    google: any;
-  }
   type Session = {
     userId?: string;
   };

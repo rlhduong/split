@@ -19,7 +19,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userService } from '@/service/userService';
 import GoogleSignInButton from '../GoogleSignInButton';
 
-const page = () => {
+const Page = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -34,13 +34,10 @@ const page = () => {
   const { mutate } = useMutation({
     mutationFn: ({ email, password }: LoginFormData) =>
       userService.register({ email, password }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['session'] });
       queryClient.invalidateQueries({ queryKey: ['trips'] });
       router.push('/');
-    },
-    onError: (error: any) => {
-      console.error('Registration failed:', error);
     },
   });
 
@@ -119,4 +116,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

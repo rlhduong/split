@@ -19,7 +19,7 @@ import {
 import { userService } from '@/service/userService';
 import GoogleSignInButton from '../GoogleSignInButton';
 
-const page = () => {
+const Page = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -34,12 +34,12 @@ const page = () => {
   const { mutate, isPending, isError } = useMutation({
     mutationFn: ({ email, password }: LoginFormData) =>
       userService.login({ email, password }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['session'] });
       queryClient.invalidateQueries({ queryKey: ['trips'] });
       router.push('/');
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.error('Login failed:', error);
     },
   });
@@ -126,4 +126,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
