@@ -5,13 +5,13 @@ resource "null_resource" "build_app" {
 
   provisioner "local-exec" {
     command     = "bash build.sh"
-    working_dir = "${path.module}/../server"
+    working_dir = "${path.module}/../../../server"
   }
 }
 data "archive_file" "app" {
   type        = "zip"
-  source_dir  = "${path.module}/../server"
-  output_path = "${path.module}/../server.zip"
+  source_dir  = "${path.module}/../../../server"
+  output_path = "${path.module}/../../../server.zip"
 
   depends_on = [
     null_resource.build_app
@@ -34,8 +34,6 @@ resource "aws_lambda_function" "app" {
       JWT_SECRET_KEY       = var.jwt_secret
       GOOGLE_CLIENT_ID     = var.google_client_id
       GOOGLE_CLIENT_SECRET = var.google_client_secret
-      NODE_ENV             = var.node_env
-      LOCALSTACK           = var.localstack ? "true" : "false"
     }
   }
 }

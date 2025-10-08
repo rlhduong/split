@@ -79,8 +79,6 @@ const Map = ({
     if (autocompleteRef.current) {
       const place = autocompleteRef.current.getPlace();
 
-      console.log(place);
-
       if (place.geometry?.location) {
         const location = {
           lat: place.geometry.location.lat(),
@@ -107,9 +105,7 @@ const Map = ({
 
         let placeName = 'Selected Location';
         if (response.results && response.results.length > 0) {
-          // Try to get the most specific name
           const result = response.results[0];
-          console.log('Geocoding result:', result);
           placeName = result.formatted_address || placeName;
         }
 

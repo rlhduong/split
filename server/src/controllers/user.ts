@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { UserService } from '../service/user';
 import { setAuthCookie } from '../lib/cookie';
-import { set } from 'mongoose';
 
 //Config
 dotenv.config();

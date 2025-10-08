@@ -1,5 +1,5 @@
 docker-compose up -d
-cd ../../../deployment/
+cd ../../../deployment/env/localstack
 export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 

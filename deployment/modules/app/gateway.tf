@@ -13,7 +13,7 @@ resource "aws_apigatewayv2_api" "lambda_api" {
 
 resource "aws_apigatewayv2_stage" "lambda_stage" {
   api_id      = aws_apigatewayv2_api.lambda_api.id
-  name        = "dev"
+  name        = "$default"
   auto_deploy = true
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gw.arn
