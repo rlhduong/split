@@ -34,7 +34,7 @@ const GoogleSignInButton = () => {
       variant="outline"
       className="w-full mt-4 bg-customgreys-secondarybg border-none outline-none text-white-50 hover:!bg-primary-700 hover:text-customgreys-darkGrey cursor-pointer flex items-center justify-center"
     >
-      <Image src="/icons/google.svg" alt="Google" className="w-4 h-4 mr-2" />
+      <Image src="/icons/google.svg" alt="Google" className="w-4 h-4 mr-2" width={16} height={16} />
       {isPending && <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />}
       Sign in with Google
     </Button>

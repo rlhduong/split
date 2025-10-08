@@ -33,7 +33,7 @@ import { useState } from 'react';
 const Page = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, isLoading } = useSession();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 
@@ -68,7 +68,7 @@ const Page = () => {
   return (
     <div className="flex flex-row justify-center w-full min-h-screen bg-customgreys-primarybg">
       <main className="flex flex-col h-full w-[90%] md:w-3/4 lg:w-2/3 gap-18">
-        <NavBar session={session} />
+        <NavBar session={session} isLoading={isLoading} />
         <div className="w-full flex flex-row justify-center">
           <div className="w-[90%] md:w-2/3 xl:w-1/2">
             <Form {...form}>

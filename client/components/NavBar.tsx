@@ -9,10 +9,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userService } from '@/service/userService';
 
 type NavBarProps = {
+  isLoading?: boolean;
   session?: { userId?: string } | null;
 };
 
-const NavBar = ({ session }: NavBarProps) => {
+const NavBar = ({ session, isLoading }: NavBarProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -37,30 +38,31 @@ const NavBar = ({ session }: NavBarProps) => {
           <span className="text-lg">Tripping</span>
         </Link>
 
-        {session ? (
-          <Link className="flex flex-row gap-2" href="/trips/plan">
-            <Button className="text-white-50 hover:text-customgreys-darkGrey hover:bg-primary-700 cursor-pointer">
-              <Notebook />
-              New Trip
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-white-50 hover:text-customgreys-darkGrey hover:bg-primary-700 cursor-pointer"
-              onClick={() => mutate()}
-            >
-              Sign out
-            </Button>
-          </Link>
-        ) : (
-          <Link href="/signin">
-            <Button
-              variant="ghost"
-              className="text-white-50 hover:text-customgreys-darkGrey hover:bg-primary-700 cursor-pointer"
-            >
-              Sign in
-            </Button>
-          </Link>
-        )}
+        {!isLoading &&
+          (session ? (
+            <Link className="flex flex-row gap-2" href="/trips/plan">
+              <Button className="text-white-50 hover:text-customgreys-darkGrey hover:bg-primary-700 cursor-pointer">
+                <Notebook />
+                New Trip
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-white-50 hover:text-customgreys-darkGrey hover:bg-primary-700 cursor-pointer"
+                onClick={() => mutate()}
+              >
+                Sign out
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/signin">
+              <Button
+                variant="ghost"
+                className="text-white-50 hover:text-customgreys-darkGrey hover:bg-primary-700 cursor-pointer"
+              >
+                Sign in
+              </Button>
+            </Link>
+          ))}
       </div>
     </nav>
   );
