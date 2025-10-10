@@ -8,3 +8,10 @@ output "stage_url" {
   value       = "${aws_apigatewayv2_api.lambda_api.api_endpoint}/${aws_apigatewayv2_stage.lambda_stage.name}"
 }
 
+output "lambda_api_id" {
+  value = aws_apigatewayv2_api.lambda_api.id
+}
+
+output "lambda_stage_name" {
+  value = aws_apigatewayv2_stage.lambda_stage.name
+}

@@ -14,3 +14,7 @@ module "app" {
 output "api_endpoint" {
   value = module.app.base_url
 }
+
+output "acm_validation_record" {
+  value = aws_acm_certificate.api_cert.domain_validation_options
+}
