@@ -1,6 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { TripService } from '../service/trip';
 import { TripData } from '../types';
+import { encodeDateToUnix } from '../lib/utils';
 
 export const validateTrip = async (
   req: Request,
@@ -11,11 +12,12 @@ export const validateTrip = async (
   const tripId = req.params.tripId;
 
   try {
-    const trip = (await TripService.validateTrip(
-      tripId,
-      userId
-    )) as unknown as TripData;
-    req.trip = trip;
+    const trip = await TripService.validateTrip(tripId, userId);
+    req.trip = trip as unknown as TripData;
+    req.tripDates = {
+      startDate: encodeDateToUnix(trip.startDate),
+      endDate: encodeDateToUnix(trip.endDate),
+    };
     next();
   } catch (error: any) {
     if (error.message === 'Trip not found') {

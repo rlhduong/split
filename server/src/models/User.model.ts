@@ -19,6 +19,6 @@ const schema = new Schema({
   },
 });
 
-export default model('User', schema, {
+export default model('Tripping-User', schema, {
   create: true,
 });

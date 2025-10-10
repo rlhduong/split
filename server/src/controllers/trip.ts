@@ -6,15 +6,17 @@ export const createTrip = async (req: Request, res: Response) => {
   const { name, destination, startDate, endDate } = req.body;
 
   try {
-    const trip = await TripService.createTrip({
-      userId,
-      name,
-      startDate,
-      endDate,
-      destination,
-      total: 0,
-      participants: [],
-    });
+    const trip = await TripService.createTrip(
+      {
+        userId,
+        name,
+        destination,
+      },
+      {
+        startDate,
+        endDate,
+      }
+    );
     res
       .status(200)
       .json({ message: 'Trip created successfully', tripId: trip.id });
@@ -33,11 +35,16 @@ export const getTrip = async (req: Request, res: Response) => {
 };
 
 export const getTrips = async (req: Request, res: Response) => {
+  const lastKeyRaw = req.query.lastKey;
+  const limitRaw = req.query.limit;
+  const lastKey = typeof lastKeyRaw === 'string' ? lastKeyRaw : '';
+  const limit = typeof limitRaw === 'string' ? Number(limitRaw) : 10;
+
   const userId = req.user?.userId!;
 
   try {
-    const trips = await TripService.getTripsByUserId(userId);
-    res.status(200).json({ trips });
+    const data = await TripService.getTripsByUserId(userId, lastKey, limit);
+    res.status(200).json({ trips: data.trips, lastKey: data.lastkey });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -69,5 +76,28 @@ export const addParticipant = async (req: Request, res: Response) => {
     } else {
       res.status(500).json({ message: 'Internal server error' });
     }
+  }
+};
+
+export const updateTrips = async (req: Request, res: Response) => {
+  const tripId = req.params.tripId;
+  const { name, destination, startDate, endDate, days, locations } = req.body;
+  try {
+    await TripService.updateTrip(
+      {
+        id: tripId,
+        name,
+        destination,
+        days,
+        locations,
+      },
+      {
+        startDate,
+        endDate,
+      }
+    );
+    res.status(200).json({ message: 'Trip updated successfully', tripId });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

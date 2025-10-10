@@ -7,5 +7,9 @@ coverage/
 src/database.db
 rdb
 server.zip
-.terraform*
-terraform*
+*.terraform
+*terraform.tfstate
+*terraform.tfstate.backup
+*.terraform.lock.hcl
+*terraform.tfstate.d
+*.terraform.tfstate.lock.info

@@ -7,7 +7,10 @@ export const ExpenseRepository = {
     return await Expense.get(expenseId);
   },
   getAllExpenses: async (tripId: string) => {
-    const expenses = await Expense.query('tripId').eq(tripId).exec();
+    const expenses = await Expense.query('tripId')
+      .eq(tripId)
+      .sort('descending')
+      .exec();
     return expenses;
   },
   createExpense: async (newExpense: ExpenseData) => {
@@ -16,6 +19,13 @@ export const ExpenseRepository = {
       ...newExpense,
     });
     await expense.save();
+    return expense;
+  },
+  updateExpense: async (
+    expenseId: string,
+    updatedFields: Partial<ExpenseData>
+  ) => {
+    const expense = await Expense.update({ id: expenseId }, updatedFields);
     return expense;
   },
   deleteExpense: async (expenseId: string) => {

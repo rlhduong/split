@@ -6,6 +6,7 @@ import {
   getTrips,
   getTrip,
   deleteTrip,
+  updateTrips,
   addParticipant,
 } from '../controllers/trip';
 
@@ -21,5 +22,5 @@ router.post(
   validateTrip,
   addParticipant
 );
-
+router.put('/:tripId', validateToken, validateTrip, updateTrips);
 export default router;

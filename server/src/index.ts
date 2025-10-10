@@ -1,6 +1,4 @@
-import serverless from 'serverless-http';
+import serverlessExpress from '@codegenie/serverless-express';
 import app from './app';
 
-export const handler = serverless(app, {
-  basePath: '/dev', // strips /dev before Express sees it
-});
+export const handler = serverlessExpress({ app });

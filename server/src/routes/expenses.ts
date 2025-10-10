@@ -5,8 +5,9 @@ import {
   addExpense,
   getAllExpenses,
   deleteExpense,
+  updateExpense,
   settle,
-} from '../controllers/expenses';
+} from '../controllers/expense';
 
 const router = Router({ mergeParams: true });
 
@@ -14,5 +15,6 @@ router.post('/', validateToken, validateTrip, addExpense);
 router.get('/', validateToken, validateTrip, getAllExpenses);
 router.delete('/:expenseId', validateToken, validateTrip, deleteExpense);
 router.get('/settle', validateToken, validateTrip, settle);
+router.put('/:expenseId', validateToken, validateTrip, updateExpense);
 
 export default router;

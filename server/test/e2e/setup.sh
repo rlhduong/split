@@ -1,5 +1,5 @@
 docker-compose up -d
-cd ../../../deployment/
+cd ../../../deployment/env/localstack
 export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 
@@ -17,5 +17,5 @@ API_ID=$(aws --endpoint-url=http://localhost:4566 apigatewayv2 get-apis \
 API="http://${API_ID}.execute-api.localhost.localstack.cloud:4566/dev/_user_request_"
 echo "export API=$API" >> "$HOME/.bashrc"
 echo "export API=$API"
-curl -X POST  "$API/users/register"  -H "Content-Type: application/json"   -d '{"email":"test@test.com","password":"123456"}'
+# curl -X POST  "$API/users/register"  -H "Content-Type: application/json"   -d '{"email":"test@test.com","password":"123456"}'
 # echo "API=$API" >> "$GITHUB_ENV"

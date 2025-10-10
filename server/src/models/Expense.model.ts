@@ -11,7 +11,12 @@ const schema = new Schema({
     index: {
       name: 'tripId',
       type: 'global',
+      rangeKey: 'createdAt',
     },
+  },
+  category: {
+    type: String,
+    required: true,
   },
   description: {
     type: String,
@@ -21,8 +26,8 @@ const schema = new Schema({
     type: Number,
     required: true,
   },
-  date: {
-    type: String,
+  createdAt: {
+    type: Number,
     required: true,
   },
   payer: {
@@ -36,6 +41,6 @@ const schema = new Schema({
   },
 });
 
-export default model('Expense', schema, {
+export default model('Tripping-Expense', schema, {
   create: true,
 });
