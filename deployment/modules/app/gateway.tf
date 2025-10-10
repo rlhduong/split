@@ -3,7 +3,7 @@ resource "aws_apigatewayv2_api" "lambda_api" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins     = [var.tripping_frontend_url]
+    allow_origins     = ["https://tripping.rlhduong.com"]
     allow_methods     = ["OPTIONS", "POST", "GET", "PUT", "DELETE", "PATCH"]
     allow_headers     = ["Content-Type", "Authorization"]
     allow_credentials = true
