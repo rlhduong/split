@@ -37,7 +37,7 @@ jobs:
         working-directory: deployment/env/aws
         run: terraform validate
 
-      - name: Terraform Plan
+      - name: Terraform Plan and Apply
         working-directory: deployment/env/aws
         env:
           TF_VAR_jwt_secret: ${{ secrets.JWT_SECRET_KEY }}
@@ -45,14 +45,6 @@ jobs:
           TF_VAR_google_client_secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           TF_VAR_port: ${{ secrets.PORT }}
           TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-        run: terraform plan -out=tfplan
-
-      - name: Terraform Apply
-        working-directory: deployment/env/aws
-        env:
-          TF_VAR_jwt_secret: ${{ secrets.JWT_SECRET_KEY }}
-          TF_VAR_google_client_id: ${{ secrets.GOOGLE_CLIENT_ID }}
-          TF_VAR_google_client_secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-          TF_VAR_port: ${{ secrets.PORT }}
-          TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-        run: terraform apply tfplan --auto-approve
+        run: |
+          terraform plan
+          terraform apply --auto-approve
