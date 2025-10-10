@@ -45,6 +45,7 @@ jobs:
           TF_VAR_google_client_secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           TF_VAR_port: ${{ secrets.PORT }}
           TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+          TF_VAR_tripping_frontend_url: ${{ secrets.TRIPPING_FRONTEND_URL }}
         run: |
           terraform plan
           terraform apply --auto-approve

@@ -17,3 +17,7 @@ variable "google_client_secret" {
   type      = string
   sensitive = true
 }
+
+variable "tripping_frontend_url" {
+  type = string
+}
